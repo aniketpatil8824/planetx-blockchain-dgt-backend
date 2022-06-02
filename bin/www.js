@@ -7,6 +7,7 @@
 import app from '../app.js'
 import debugMessage from 'debug'
 import http from 'http'
+import { shutDown } from '../utilities/serverUtils'
 
 const debug = debugMessage('planetx-blockchain-dgt-backend:server')
 
@@ -89,5 +90,17 @@ function onListening () {
     ? 'pipe ' + addr
     : 'port ' + addr.port
   debug('Listening on ' + bind)
-  console.log('Server Listening On Port ' + addr.port)
+  console.log('SERVER LISTENING ON PORT ' + addr.port)
 }
+
+process.on('SIGTERM', () => {
+  // console.log('SIGTERM')
+  shutDown(false)
+})
+
+process.on('SIGINT', () => {
+  // console.log('SIGINT')
+  shutDown(false)
+})
+
+export default server

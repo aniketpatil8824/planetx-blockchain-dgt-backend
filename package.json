@@ -8,6 +8,7 @@
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
+    "amqplib": "^0.10.0",
     "app-root-path": "^3.0.0",
     "compression": "^1.7.4",
     "cookie-parser": "~1.4.4",

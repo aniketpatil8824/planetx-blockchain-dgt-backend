@@ -12,6 +12,7 @@ import logger from './utilities/logger.js'
 import routes from './routes'
 
 import './database'
+import './utilities/queueUtils'
 
 const app = express()
 

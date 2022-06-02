@@ -13,7 +13,7 @@ export default {
 
   NETWORK: {
     ETH: {
-      RPC_API: ''
+      RPC_API: process.env.RPC_API
     }
   },
 
@@ -27,6 +27,10 @@ export default {
     LEVEL: process.env.LOG_LEVEL || 'debug'
   },
 
-  API_KEY: process.env.API_KEY
+  API_KEY: process.env.API_KEY,
+
+  QUEUE: {
+    CONNECTION_URL: process.env.RMQ_CONN_URL
+  }
 
 }
