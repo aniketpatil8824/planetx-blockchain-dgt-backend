@@ -1,0 +1,45 @@
+version: "3.9"
+services:
+
+  mongodb:  
+    image: 'mongo:4'
+    container_name: ${PROJECT_NAME}_mongodb
+    restart: always  
+    env_file: 
+      - ./.env 
+    ports:
+      - "27017:27017"
+
+  rabbitmq:
+    image: "rabbitmq:3.8"
+    container_name: ${PROJECT_NAME}_rabbitmq
+    restart: always
+    env_file: 
+      - ./.env
+    ports: 
+      - "5672:5672"  
+
+  server:
+    build:
+      context: .
+      dockerfile: dockerfile.dev
+    container_name: ${PROJECT_NAME}_server
+    depends_on:
+      - mongodb
+      - rabbitmq  
+    restart: always
+    volumes:
+      - ./docker-logs:/app/logs #bind mount to watch logs locally
+      - /app/node_modules #anonymous volume to stop override of node moudles when copying
+      - ./:/app # Bind mount to put changes without rebuilding the image
+    env_file: 
+      - ./.env
+    environment:
+      - RMQ_CONN_URL=amqp://rabbitmq:5672
+      - MONGO_URI=mongodb://mongodb:27017/${PROJECT_NAME}
+    ports:
+      - "3000:3000"  
+
+
+
+

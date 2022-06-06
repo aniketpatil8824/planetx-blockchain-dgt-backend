@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node --experimental-specifier-resolution=node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "dev": "nodemon --experimental-specifier-resolution=node ./bin/www"
   },
   "dependencies": {
     "amqplib": "^0.10.0",
@@ -17,6 +17,7 @@
     "dotenv": "^16.0.1",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "express-rate-limit": "^6.4.0",
     "helmet": "^5.1.0",
     "http-errors": "~1.6.3",
     "mongoose": "^6.3.5",

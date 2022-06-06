@@ -1,4 +1,4 @@
-import { channel } from '../queueUtils'
+import { channel } from '.'
 
 export default async function publishToQueue (queueName, data) {
   // console.log(queueName,data);

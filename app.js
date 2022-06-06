@@ -10,6 +10,7 @@ import morgan from 'morgan'
 
 import logger from './utilities/logger.js'
 import routes from './routes'
+import rateLimiter from './middleware/rateLimiter.js'
 
 import './database'
 import './utilities/queueUtils'
@@ -25,14 +26,20 @@ app.set('view engine', 'ejs')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use(rateLimiter)
 app.use(compression())
 app.use(cookieParser())
 app.use(cors())
 app.use(helmet())
-app.use(morgan('combined', { stream: logger.stream }))
 app.use(express.static(path.join(__dirname, 'public')))
-
 app.use('/', routes)
+
+app.use(morgan('combined', {
+  stream: logger.stream,
+  skip: (req, res) => { // Skip to log health endpoint
+    return req.url === '/health'
+  }
+}))
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
