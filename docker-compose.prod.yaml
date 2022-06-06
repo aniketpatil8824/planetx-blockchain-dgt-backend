@@ -27,7 +27,9 @@ services:
     build:
       context: .
       dockerfile: dockerfile.prod
-    container_name: ${PROJECT_NAME}_server
+      args:
+        -PORT: ${PORT:-3000}
+    container_name: ${PROJECT_NAME:?Please provide project name in env file}_server #throw error if project name not provide in .env
     volumes:
       - server-logs:/app/logs #named volume to persist logs
       - /app/node_modules #anonymous volume to stop override of node moudles when copying
@@ -41,7 +43,7 @@ services:
       - RMQ_CONN_URL=amqp://rabbitmq:5672
       - MONGO_URI=mongodb://mongodb:27017/${PROJECT_NAME}
     ports:
-      - "3000:3000"
+      - "${PORT:-3000}:${PORT:-3000}" #Fetch from .env or default to 3000
 
 volumes:
   mongodb-data:

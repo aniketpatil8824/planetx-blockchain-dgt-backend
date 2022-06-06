@@ -8,7 +8,9 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+ARG PORT
+
+EXPOSE $PORT
 
 # Uncomment below line if waiting is not needed(If Rabitmq not used)
 # CMD ["npm","run","dev"] 
