@@ -11,3 +11,5 @@ Dockerfile.dev
 **/.editorconfig
 **/.aws
 **/dist
+contracts-hardhat
+contracts-truffle
