@@ -95,12 +95,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
     function createUser(
         address _userAddress,
         bool _isActive,
-        roles _role
+        uint _role
     )external
      onlyOwner
      {
         require(!platformUsers[_userAddress].initialized,"User with the address already exists");
-        platformUsers[_userAddress] = user(_isActive,_role,true);
+        platformUsers[_userAddress] = user(_isActive,roles(_role),true);
         emit Updated(_userAddress);
     }
 

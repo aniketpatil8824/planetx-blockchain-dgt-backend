@@ -38,7 +38,7 @@
             "type": "function"
         }
     ],
-    "GREETER_ADDRESS": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "GREETER_ADDRESS": "0xAE7b7eebE0E2269f216d0375f45801151cC3D587",
     "USER_ABI": [
         {
             "inputs": [
@@ -226,5 +226,5 @@
             "type": "function"
         }
     ],
-    "USER_ADDRESS": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+    "USER_ADDRESS": "0x4C7e6AdCe7b6B262162A9541Dd56b8F9c9CdDD56"
 }
