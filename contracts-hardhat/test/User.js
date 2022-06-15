@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai')
-const { ethers } = require('hardhat')
+const { ethers, upgrades } = require('hardhat')
 
 describe('User Contract', () => {
   let Token, token, User, user, owner, addr1, addr2
@@ -8,8 +8,7 @@ describe('User Contract', () => {
     Token = await ethers.getContractFactory('Token')
     token = await Token.deploy('DGT Token', 'DGT', 100000000)
     User = await ethers.getContractFactory('User')
-    user = await User.deploy(token.address);
-
+    user = await upgrades.deployProxy(User, [token.address]);
     [owner, addr1, addr2] = await ethers.getSigners()
   })
 

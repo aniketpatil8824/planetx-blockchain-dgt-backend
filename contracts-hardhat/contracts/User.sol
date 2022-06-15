@@ -2,14 +2,16 @@
 pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+
 
 /**
  * @title User
  */
  
- contract User is Ownable, ReentrancyGuard{
+ contract User is Initializable, OwnableUpgradeable, ReentrancyGuardUpgradeable {
 
      /**
     * @dev Possible roles for the contract are declared as enumerator
@@ -30,7 +32,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
      }
 
     // address of the ERC20 token
-    IERC20 immutable private _token;
+    IERC20 private _token;
 
     mapping(address => user) private platformUsers;
 
@@ -45,13 +47,13 @@ import "@openzeppelin/contracts/access/Ownable.sol";
         _;
     }
 
-     /**
-     * @dev Creates a User contract.
-     * @param token_ address of the ERC20 token contract
-     */
-    constructor(address token_) {
-        require(token_ != address(0x0));
+    function initialize(
+        address token_
+    ) external initializer{
+        require(token_ != address(0x0));    
         _token = IERC20(token_);
+        __Ownable_init();
+        __ReentrancyGuard_init();
     }
 
     /**

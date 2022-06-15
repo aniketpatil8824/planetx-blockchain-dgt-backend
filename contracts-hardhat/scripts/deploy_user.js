@@ -1,5 +1,6 @@
 
-const hre = require('hardhat')
+const { hre, upgrades } = require('hardhat')
+
 const saveToConfig = require('../utils/saveToConfig')
 
 async function main () {
@@ -13,11 +14,14 @@ async function main () {
 
   const User = await hre.ethers.getContractFactory('User')
   const userABI = (await hre.artifacts.readArtifact('User')).abi
+
   await saveToConfig('USER', 'ABI', userABI)
-  const user = await User.deploy(token.address)
+  const user = await upgrades.deployProxy(User, [token.address],
+    { initializer: 'initialize' })
   await user.deployed()
+
   await saveToConfig('USER', 'ADDRESS', user.address)
-  console.log('Greeter deployed to:', user.address)
+  console.log('User contract deployed to:', user.address)
 }
 
 main().catch((error) => {
