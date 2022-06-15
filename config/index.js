@@ -3,6 +3,8 @@
 import dotenv from 'dotenv'
 import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
+import dbConstants from './dbConstants.json'
+import contract from './contract.json'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -31,6 +33,12 @@ export default {
 
   QUEUE: {
     CONNECTION_URL: process.env.RMQ_CONN_URL
-  }
+  },
+
+  DB_CONSTANTS: dbConstants,
+
+  CONTRACT: contract,
+
+  KEY_SECURE_PASSWORD: 'planetx12345'
 
 }
