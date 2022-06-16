@@ -1,0 +1,22 @@
+{
+  "USER": {
+    "ROLE": {
+      "NONE": 0,
+      "USER": 1,
+      "MERCHANT": 2,
+      "ADMIN": 3,
+      "SUPER_ADMIN":4
+    },
+    "STATUS": {
+      "PAUSED": 0,
+      "ACTIVE": 1,
+      "BLOCKED": 2
+    }
+  },
+
+  "NETWORK_TYPES":{
+    "ETHEREUM": 1,
+    "EDGE":2,
+    "NIGHTFALL":3
+  }
+}
