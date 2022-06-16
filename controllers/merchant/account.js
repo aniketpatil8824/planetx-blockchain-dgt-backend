@@ -21,14 +21,14 @@ export const createAccount = async (req, res) => {
 
     const newUser = new User({
       username,
-      role: config.DB_CONSTANTS.USER.ROLE.SUPER_ADMIN,
+      role: config.DB_CONSTANTS.USER.ROLE.MERCHANT,
       status: config.DB_CONSTANTS.USER.STATUS.ACTIVE,
       wallet: [wallet._id]
     })
 
     await newUser.save()
 
-    responseUtils.response.successResponse(res, 'Account Created for Super Admin', newUser)
+    responseUtils.response.successResponse(res, 'Account Created for merchant', newUser)
   } catch (err) {
     responseUtils.response.serverErrorResponse(res, 'Something Went Wrong', err)
   }
@@ -39,7 +39,7 @@ export const getAccount = async (req, res) => {
     const username = req.body.username
     const user = await User.findOne({ username }).populate('wallet', 'address publicKey networkType').exec()
 
-    responseUtils.response.successResponse(res, 'Account Details for SuperAdmin', user)
+    responseUtils.response.successResponse(res, 'Account Details for Merchant', user)
   } catch (err) {
     logger.error(err)
     responseUtils.response.serverErrorResponse(res, 'Something Went Wrong', err)
