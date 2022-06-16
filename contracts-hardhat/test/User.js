@@ -19,51 +19,95 @@ describe('User Contract', () => {
     it('Should get the token address of the token correct', async () => {
       expect(await user.getToken()).to.equal(token.address)
     })
+    it('Should set the initial admin as the owner', async () => {
+      expect(await user.isAdmin(owner.address)).to.equal(true)
+    })
   })
 
   describe('Transactions', () => {
-    it('Should Create/Update New/Existing Users', async () => {
-      await user.createUser(addr1.address, true, 1)
-      const getUser = await user.getUser(addr1.address)
-      expect(getUser.initialized).to.equal(true)
-      expect(getUser.isActive).to.equal(true)
-      expect(getUser.role).to.equal(1)
+    it('Should Create and Update update status of Users', async () => {
+      await user.createUser(addr1.address, 0)
+      expect(await user.getStatus(addr1.address)).to.equal(true)
+      expect(await user.isMerchant(addr1.address)).to.equal(true)
 
-      await user.updateStatus(addr1.address, false)
-      const updatedUser = await user.getUser(addr1.address)
-      expect(updatedUser.initialized).to.equal(true)
-      expect(updatedUser.isActive).to.equal(false)
+      await user.updateStatus(addr1.address)
+      expect(await user.getStatus(addr1.address)).to.equal(false)
     })
 
     it('Should fail if user not created', async () => {
       await expect(
         user
           .connect(owner)
-          .updateStatus(addr2.address, 2)
+          .updateStatus(addr2.address)
       )
         .to
         .be
-        .revertedWith('User does not exists')
+        .revertedWith('Account does not exists')
     })
 
-    it('Should not let other users to create/update other than owner', async () => {
+    it('Should Update the admin Power to new address', async () => {
+      await user.updateAdmin(addr1.address)
+      expect(await user.isAdmin(addr1.address)).to.equal(true)
+      expect(await user.isAdmin(owner.address)).to.equal(false)
+    })
+
+    it('Should not update the admin address', async () => {
       await expect(
         user
           .connect(addr1)
-          .createUser(addr2.address, true, 1)
+          .updateAdmin(addr2.address)
       )
         .to
         .be
-        .revertedWith('Ownable: caller is not the owner')
-      await user.createUser(addr1.address, true, 1)
+        .revertedWith('Restricted to admins')
+
+      await expect(
+        user
+          .connect(owner)
+          .updateAdmin(owner.address)
+      )
+        .to
+        .be
+        .revertedWith('This is already the admin user')
+
+      await user.createUser(addr1.address, 1)
+      await expect(
+        user
+          .connect(owner)
+          .updateAdmin(addr1.address)
+      )
+        .to
+        .be
+        .revertedWith('Account already exists as user')
+    })
+
+    it('Should fail while creating/updating an account', async () => {
+      await expect(
+        user
+          .connect(addr1)
+          .createUser(addr2.address, 1)
+      )
+        .to
+        .be
+        .revertedWith('Restricted to admins')
+      await user.createUser(addr1.address, 1)
+      await expect(
+        user
+          .connect(owner)
+          .createUser(addr1.address, 0)
+      )
+        .to
+        .be
+        .revertedWith('Account already exists as user')
+
       await expect(
         user
           .connect(addr2)
-          .updateStatus(addr1.address, false)
+          .updateStatus(addr1.address)
       )
         .to
         .be
-        .revertedWith('Ownable: caller is not the owner')
+        .revertedWith('Restricted to admins')
     })
   })
 })

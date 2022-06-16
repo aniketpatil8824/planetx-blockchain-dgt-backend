@@ -47,9 +47,9 @@ contract Administered is OwnableUpgradeable, AccessControlUpgradeable {
   /// @dev Restricted to members of the merchant role.
   modifier ifNotExists(address account)
   {
-    require(isAdmin(account) == false, "This is the admin user");
-    require(isMerchant(account) == false, "Account exists as Marchant");
-    require(isUser(account) == false, "Account exists as user");
+    require(isAdmin(account) == false, "This is already the admin user");
+    require(isMerchant(account) == false, "Account already exists as Marchant");
+    require(isUser(account) == false, "Account already exists as user");
     _;
   }
 
@@ -128,7 +128,6 @@ contract Administered is OwnableUpgradeable, AccessControlUpgradeable {
   function changeAdmin(address _admin)
     internal virtual ifNotExists(_admin)
   {
-    require(msg.sender != _admin,"The new admin cannot be the existing one");
     addAdmin(_admin);
     renounceAdmin();
   }
