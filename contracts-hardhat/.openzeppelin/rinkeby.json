@@ -1,0 +1,164 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0x1bBb45830e5DA301B84532Dd0d154C988a1534Bd",
+    "txHash": "0x35f655da4e028cf54a9c2d5ca83773f8398aa6b97c1d62ccdd6e1afd26a24087"
+  },
+  "proxies": [
+    {
+      "address": "0x49a8F1275723438f65346A4dA33A9e3aC01bfE22",
+      "txHash": "0xd4415da1d1fe1ecb525bb7e8e969fc93c2d231a5c8155aff0b3bd7bea65c82ec",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "0cf1ec1fb325d1e45e9c253f2bac64374ed18e6e3717980e0913def1a95aa48b": {
+      "address": "0x3A5aa6EED46174F724DD73df3DFa2594c7dD0cDb",
+      "txHash": "0xdbbb052ffeb524e0973c841929bf7758cee38551ca05e80ec1300e07324a91cf",
+      "layout": {
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\utils\\ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "52",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:87"
+          },
+          {
+            "label": "_status",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_uint256",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:38"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:74"
+          },
+          {
+            "label": "_token",
+            "offset": 0,
+            "slot": "151",
+            "type": "t_contract(IERC20)1273",
+            "contract": "User",
+            "src": "contracts\\User.sol:35"
+          },
+          {
+            "label": "platformUsers",
+            "offset": 0,
+            "slot": "152",
+            "type": "t_mapping(t_address,t_struct(user)1371_storage)",
+            "contract": "User",
+            "src": "contracts\\User.sol:37"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IERC20)1273": {
+            "label": "contract IERC20",
+            "numberOfBytes": "20"
+          },
+          "t_enum(roles)1363": {
+            "label": "enum User.roles",
+            "members": [
+              "admin",
+              "merchant",
+              "customer"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_struct(user)1371_storage)": {
+            "label": "mapping(address => struct User.user)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(user)1371_storage": {
+            "label": "struct User.user",
+            "members": [
+              {
+                "label": "isActive",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "role",
+                "type": "t_enum(roles)1363",
+                "offset": 1,
+                "slot": "0"
+              },
+              {
+                "label": "initialized",
+                "type": "t_bool",
+                "offset": 2,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    }
+  }
+}

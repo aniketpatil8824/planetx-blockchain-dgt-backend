@@ -2,7 +2,7 @@
   "name": "hardhat-project",
   "type": "commonjs",
   "scripts": {
-    "size" : "npx hardhat size-contracts",
+    "size": "npx hardhat size-contracts",
     "coverage": "npx hardhat coverage"
   },
   "devDependencies": {
@@ -30,6 +30,9 @@
     "web3": "^1.7.3"
   },
   "dependencies": {
+    "@openzeppelin/contracts": "^4.6.0",
+    "@openzeppelin/contracts-upgradeable": "^4.6.0",
+    "@openzeppelin/hardhat-upgrades": "^1.18.3",
     "hardhat-contract-sizer": "^2.5.1"
   }
 }
