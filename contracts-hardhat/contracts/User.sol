@@ -27,8 +27,8 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
     */
      struct user{
          bool isActive;
-         roles role;
          bool initialized;
+         roles role;
      }
 
     // address of the ERC20 token
@@ -102,7 +102,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
      onlyOwner
      {
         require(!platformUsers[_userAddress].initialized,"User with the address already exists");
-        platformUsers[_userAddress] = user(_isActive,roles(_role),true);
+        platformUsers[_userAddress] = user(_isActive,true,roles(_role));
         emit Updated(_userAddress);
     }
 
