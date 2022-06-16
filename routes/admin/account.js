@@ -1,8 +1,9 @@
 import express from 'express'
+import { createAccount, getAccount } from '../../controllers/admin'
+
 const router = express.Router()
 
-router.post('/create', function (req, res, next) {
-  res.send('respond with a resource')
-})
+router.get('/', getAccount)
+router.post('/create', createAccount)
 
 export default router

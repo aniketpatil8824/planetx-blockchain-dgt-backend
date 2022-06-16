@@ -9,6 +9,7 @@ const userSchema = new Schema({
     type: String,
     trim: true,
     required: true,
+    unique: true,
     validate (username) {
       if (validator.isEmpty(username)) {
         throw new Error('Username field can not be empty!')
@@ -28,7 +29,7 @@ const userSchema = new Schema({
     default: config.DB_CONSTANTS.USER.STATUS.ACTIVE
   },
 
-  WALLET: [{
+  wallet: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'wallets'
   }]
