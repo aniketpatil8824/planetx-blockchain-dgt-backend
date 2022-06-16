@@ -55,6 +55,6 @@ export default {
 
   CONTRACT: contract,
 
-  KEY_SECURE_PASSWORD: 'planetx12345'
+  KEY_SECURE_PASSWORD: process.env.KEY_SECURE_PASSWORD || 'planetx12345'
 
 }
