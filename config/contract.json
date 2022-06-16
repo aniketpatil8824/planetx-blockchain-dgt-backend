@@ -41,15 +41,17 @@
     "GREETER_ADDRESS": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
     "USER_ABI": [
         {
+            "anonymous": false,
             "inputs": [
                 {
-                    "internalType": "address",
-                    "name": "token_",
-                    "type": "address"
+                    "indexed": false,
+                    "internalType": "uint8",
+                    "name": "version",
+                    "type": "uint8"
                 }
             ],
-            "stateMutability": "nonpayable",
-            "type": "constructor"
+            "name": "Initialized",
+            "type": "event"
         },
         {
             "anonymous": false,
@@ -96,9 +98,9 @@
                     "type": "bool"
                 },
                 {
-                    "internalType": "enum User.roles",
+                    "internalType": "uint256",
                     "name": "_role",
-                    "type": "uint8"
+                    "type": "uint256"
                 }
             ],
             "name": "createUser",
@@ -175,6 +177,19 @@
             "type": "function"
         },
         {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "token_",
+                    "type": "address"
+                }
+            ],
+            "name": "initialize",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
             "inputs": [],
             "name": "owner",
             "outputs": [
@@ -226,5 +241,5 @@
             "type": "function"
         }
     ],
-    "USER_ADDRESS": "0x4C7e6AdCe7b6B262162A9541Dd56b8F9c9CdDD56"
+    "USER_ADDRESS": "0x49a8F1275723438f65346A4dA33A9e3aC01bfE22"
 }

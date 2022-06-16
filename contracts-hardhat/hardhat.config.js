@@ -22,9 +22,7 @@ function getPrivateKeys () {
   for (const [, value] of Object.entries(privateKeys)) {
     privateKeysArray.push(value)
   }
-  const PRIVATE_KEY = '0x8287b2fabaa91f21186384c0385317e4693b6971ffcc3651b5581f9612f555ab'
-
-  return [PRIVATE_KEY]
+  return privateKeysArray
 }
 
 module.exports = {
