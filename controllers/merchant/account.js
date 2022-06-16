@@ -28,7 +28,7 @@ export const createAccount = async (req, res) => {
 
     await newUser.save()
 
-    responseUtils.response.successResponse(res, 'Account Created', newUser)
+    responseUtils.response.successResponse(res, 'Account Created for merchant', newUser)
   } catch (err) {
     responseUtils.response.serverErrorResponse(res, 'Something Went Wrong', err)
   }
@@ -39,7 +39,7 @@ export const getAccount = async (req, res) => {
     const username = req.body.username
     const user = await User.findOne({ username }).populate('wallet', 'address publicKey networkType').exec()
 
-    responseUtils.response.successResponse(res, 'Account Details', user)
+    responseUtils.response.successResponse(res, 'Account Details for Merchant', user)
   } catch (err) {
     logger.error(err)
     responseUtils.response.serverErrorResponse(res, 'Something Went Wrong', err)
