@@ -26,7 +26,7 @@ describe('User Contract', () => {
 
   describe('Transactions', () => {
     it('Should Create and Update update status of Users', async () => {
-      await user.createUser(addr1.address, 0)
+      await user.createUser(addr1.address, 2)
       expect(await user.getStatus(addr1.address)).to.equal(true)
       expect(await user.isMerchant(addr1.address)).to.equal(true)
 
@@ -70,7 +70,7 @@ describe('User Contract', () => {
         .be
         .revertedWith('This is already the admin user')
 
-      await user.createUser(addr1.address, 1)
+      await user.createUser(addr1.address, 2)
       await expect(
         user
           .connect(owner)
@@ -78,7 +78,7 @@ describe('User Contract', () => {
       )
         .to
         .be
-        .revertedWith('Account already exists as user')
+        .revertedWith('Account already exists as Marchant')
     })
 
     it('Should fail while creating/updating an account', async () => {
@@ -94,7 +94,7 @@ describe('User Contract', () => {
       await expect(
         user
           .connect(owner)
-          .createUser(addr1.address, 0)
+          .createUser(addr1.address, 2)
       )
         .to
         .be

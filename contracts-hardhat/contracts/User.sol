@@ -16,8 +16,7 @@ import "./Administered.sol";
     * @dev Possible roles for the contract are declared as enumerator
     */
      enum roles {
-         merchant,
-         user
+         NONE, USER, MERCHANT
      }
 
     // address of the ERC20 token
@@ -94,11 +93,11 @@ import "./Administered.sol";
 
     /// @dev Give corresponding roles to the users.
     function setRoles(address _address,roles _role) internal {
-        if(_role == roles(0)){
-            addMerchant(_address);
-        }
-        else if(_role == roles(1)){
+        if(_role == roles(1)){
             addUser(_address);
+        }
+        else if(_role == roles(2)){
+            addMerchant(_address);
         }
     }
 
