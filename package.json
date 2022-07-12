@@ -22,10 +22,13 @@
     "express-rate-limit": "^6.4.0",
     "helmet": "^5.1.0",
     "http-errors": "~1.6.3",
+    "keccak256": "^1.0.6",
+    "merkletreejs": "^0.2.32",
     "mongoose": "^6.3.5",
     "morgan": "^1.9.1",
     "validator": "^13.7.0",
     "web3": "^1.7.3",
+    "web3-utils": "^1.7.4",
     "winston": "^3.7.2",
     "winston-daily-rotate-file": "^4.7.1"
   },
