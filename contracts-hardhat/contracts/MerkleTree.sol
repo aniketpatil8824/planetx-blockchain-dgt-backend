@@ -1,8 +1,18 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 import "@openzeppelin/contracts-upgradeable/utils/cryptography/MerkleProofUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-contract Merkle {
+contract Merkle is Initializable, OwnableUpgradeable {
+
+ constructor() initializer {}
+
+    function __Merkle_init() internal onlyInitializing {
+        __Ownable_init();
+    }
+
+
     struct Score{
         bytes32 root;
         bytes32[] proof;
