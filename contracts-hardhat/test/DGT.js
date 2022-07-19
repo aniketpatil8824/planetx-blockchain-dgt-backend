@@ -1,14 +1,14 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai')
 const { ethers } = require('hardhat')
-const { getRootandProof } = require('../helper/tree.cjs')
+const { getRootandProof, generateId } = require('../helper/tree.cjs')
 
 describe('DGT Contract', () => {
-  let Dgt, user, owner, addr1, addr2
+  let Dgt, user, owner, addr1
   beforeEach(async () => {
     Dgt = await ethers.getContractFactory('DGT')
     user = await Dgt.deploy();
-    [owner, addr1, addr2] = await ethers.getSigners()
+    [owner, addr1] = await ethers.getSigners()
   })
 
   describe('Deployment', () => {
@@ -21,10 +21,11 @@ describe('DGT Contract', () => {
     it('Only Owner Should update the points', async () => {
       const tree = getRootandProof([0, 5], 0)
       const timestamp = 100
+      const id = generateId('user1')
       await expect(
         user
           .connect(addr1)
-          .updatePoints(addr1.address, tree.rootHash, tree.hexProof, timestamp)
+          .updatePoints(id, tree.rootHash, tree.hexProof, timestamp)
       )
         .to
         .be
@@ -32,10 +33,11 @@ describe('DGT Contract', () => {
     })
 
     it('Should fail while verifying, if user not created', async () => {
+      const id = generateId('user1')
       await expect(
         user
           .connect(owner)
-          .verifyCurrentBalance(addr2.address, 10)
+          .verifyCurrentBalance(id, 10)
       )
         .to
         .be
@@ -43,12 +45,14 @@ describe('DGT Contract', () => {
     })
 
     it('Should return the total updates for a beneficiary correctly ', async () => {
-      expect(await user.getBeneficiariesHistoryCount(addr1.address)).to.equal(0)
+      const id = generateId('user1')
+      expect(await user.getBeneficiariesHistoryCount(id)).to.equal(0)
 
       const tree = getRootandProof([0, 5], 0)
       const timestamp = 100
-      await user.updatePoints(addr1.address, tree.rootHash, tree.hexProof, timestamp)
-      expect(await user.getBeneficiariesHistoryCount(addr1.address)).to.equal(1)
+
+      await user.updatePoints(id, tree.rootHash, tree.hexProof, timestamp)
+      expect(await user.getBeneficiariesHistoryCount(id)).to.equal(1)
     })
 
     it('Should Update the Owner Correctly', async () => {
@@ -57,18 +61,39 @@ describe('DGT Contract', () => {
     })
 
     it('Should Update the User Points Correctly and able to verify', async () => {
+      let id = generateId('user1')
       let tree = getRootandProof([0, 5, 10, 15, 20], 0)
       let timestamp = 100
-      await user.updatePoints(addr1.address, tree.rootHash, tree.hexProof, timestamp)
-      expect(await user.getBeneficiariesHistoryCount(addr1.address)).to.equal(1)
-      expect(await user.verifyCurrentBalance(addr1.address, 0)).to.equal(true)
+      await user.updatePoints(id, tree.rootHash, tree.hexProof, timestamp)
+      expect(await user.getBeneficiariesHistoryCount(id)).to.equal(1)
+      expect(await user.verifyCurrentBalance(id, 0)).to.equal(true)
 
       tree = getRootandProof([0, 5, 10, 15, 20], 1)
       timestamp = 200
-      await user.updatePoints(addr1.address, tree.rootHash, tree.hexProof, timestamp)
-      expect(await user.getBeneficiariesHistoryCount(addr1.address)).to.equal(2)
-      expect(await user.verifyCurrentBalance(addr1.address, 5)).to.equal(true)
-      expect(await user.verifyHistoricalBalance(addr1.address, 150, 0)).to.equal(true)
+      await user.updatePoints(id, tree.rootHash, tree.hexProof, timestamp)
+      expect(await user.getBeneficiariesHistoryCount(id)).to.equal(2)
+      expect(await user.verifyCurrentBalance(id, 5)).to.equal(true)
+      expect(await user.verifyHistoricalBalance(id, 150, 0)).to.equal(true)
+
+      id = generateId('user2')
+      expect(await user.getBeneficiariesHistoryCount(id)).to.equal(0)
+
+      tree = getRootandProof([0, 5], 0)
+      timestamp = 100
+      await user.updatePoints(id, tree.rootHash, tree.hexProof, timestamp)
+      expect(await user.getBeneficiariesHistoryCount(id)).to.equal(1)
+      expect(await user.verifyCurrentBalance(id, 0)).to.equal(true)
+
+      tree = getRootandProof([0, 5], 1)
+      timestamp = 50
+      await expect(
+        user
+          .connect(owner)
+          .updatePoints(id, tree.rootHash, tree.hexProof, timestamp)
+      )
+        .to
+        .be
+        .revertedWith('Time Mismatch. Could not update previous points')
     })
   })
 })

@@ -14,3 +14,7 @@ exports.getRootandProof = (leavesArray, index) => {
   }
   return response
 }
+
+exports.generateId = (stringId) => {
+  return Web3Utils.sha3(stringId)
+}

@@ -15,9 +15,9 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
         bytes32 root;
         bytes32[] proof;
     }
-    mapping (address => uint256) private latestPoint;
-    mapping (address => uint256[]) private timeStamps;
-    mapping (address=> mapping (uint256 => Score)) private userBalance;
+    mapping (bytes32 => uint256) private latestPoint;
+    mapping (bytes32 => uint256[]) private timeStamps;
+    mapping (bytes32 => mapping (uint256 => Score)) private userBalance;
     
     constructor() initializer {
          __Ownable_init();
@@ -27,7 +27,7 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
     /**
     * @dev Reverts if there is no historical data associated with this account
     */
-    modifier ifExist(address _beneficiary)
+    modifier ifExist(bytes32 _beneficiary)
     {
         require(timeStamps[_beneficiary].length > 0, "User Info Not Found");
         _;
@@ -35,12 +35,12 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
     /**
      * @dev Updates the Points for a user
-     * @param _beneficiary address of the user
+     * @param _beneficiary bytes32 id of the user
      * @param _root root hash of the merkle tree generated
      * @param _proof bytes32 array of the merkle proof
      * @param _timestamp timestamp for the balance updation
      */
-    function updatePoints(address _beneficiary ,bytes32 _root, bytes32[] memory _proof, uint256 _timestamp)
+    function updatePoints(bytes32 _beneficiary ,bytes32 _root, bytes32[] memory _proof, uint256 _timestamp)
         external
         onlyOwner
        {
@@ -56,7 +56,7 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
     * @dev Verifies the Current DGT Balance for a given account.
     * @return the verification status
     */
-    function verifyCurrentBalance(address _beneficiary, uint256 _points) 
+    function verifyCurrentBalance(bytes32 _beneficiary, uint256 _points) 
     external 
     view 
     ifExist(_beneficiary)
@@ -70,7 +70,7 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
     * @dev Verifies the Historical DGT Balance for a given account for any historical time period.
     * @return the verification status
     */
-    function verifyHistoricalBalance(address _beneficiary, uint256 _timestamp, uint256 _points) 
+    function verifyHistoricalBalance(bytes32 _beneficiary, uint256 _timestamp, uint256 _points) 
     external 
     view 
     ifExist(_beneficiary)
@@ -84,7 +84,7 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
     * @dev Gives the total numbers of historical datas for a user
     * @return Historical DGT counts
     */
-    function getBeneficiariesHistoryCount(address _beneficiary)
+    function getBeneficiariesHistoryCount(bytes32 _beneficiary)
     external
     view
     returns(uint256){
