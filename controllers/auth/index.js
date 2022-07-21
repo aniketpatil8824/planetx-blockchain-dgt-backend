@@ -18,11 +18,14 @@ export const getAccountNounce = async (req, res) => {
 export const signingData = async (req, res) => {
   const signer = req.body.signer.toLowerCase()
   try {
-    const signerData = await SignNonce.findOne({ signer })
+    let signerData = await SignNonce.findOne({ signer })
+    if (!signerData) {
+      signerData = await new SignNonce({ signer, nonce: 0 }).save()
+    }
     const signingData = await getSigningData('PlanetX Wallet Connect')
     signerData.nonce = signingData.nonce
     await signerData.save()
-    responseUtils.response.successResponse(res, 'Signing Data', { data: signingData.data })
+    responseUtils.response.successResponse(res, 'Signing Data', { signingData: signingData.data })
   } catch (err) {
     logger.error(err)
     responseUtils.response.serverErrorResponse(res, err)

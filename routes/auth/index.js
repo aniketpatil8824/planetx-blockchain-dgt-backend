@@ -3,7 +3,7 @@ import { signingData, signatureVerify } from '../../controllers/auth'
 const router = express.Router()
 
 /* GET users listing. */
-router.get('/signingdata', signingData)
-router.get('/verifysignature', signatureVerify)
+router.post('/signingdata', signingData)
+router.post('/verifysignature', signatureVerify)
 
 export default router
