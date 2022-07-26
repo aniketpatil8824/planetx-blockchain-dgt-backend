@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node --experimental-specifier-resolution=node ./bin/www",
-    "dev": "nodemon --experimental-specifier-resolution=node ./bin/www",
+    "dev": "nodemon --experimental-specifier-resolution=node ./bin/www -L",
     "contracts-compile": "cd contracts-hardhat && npx hardhat compile"
   },
   "dependencies": {
