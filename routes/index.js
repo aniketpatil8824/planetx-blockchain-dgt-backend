@@ -2,6 +2,7 @@ import express from 'express'
 import userRoute from './user'
 import adminRoute from './admin'
 import merchantRoute from './merchant'
+import authRoute from './auth'
 import healthRoute from './health'
 import verifyAPIKey from '../middleware/verifyAPIKey.js'
 
@@ -14,6 +15,7 @@ router.get('/', function (req, res, next) {
 
 router.use('/user', verifyAPIKey, userRoute)
 router.use('/admin', verifyAPIKey, adminRoute)
+router.use('/auth', authRoute)
 router.use('/merchant', verifyAPIKey, merchantRoute)
 router.use('/health', healthRoute)
 
