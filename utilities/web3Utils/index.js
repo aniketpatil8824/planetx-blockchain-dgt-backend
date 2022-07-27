@@ -1,3 +1,6 @@
 export { web3 } from './web3.js'
+export * from './adminWalletManager.js'
+export * from './nonceManager'
+export * from './createTx'
 export * from './signatureManager.js'
 export * from './tree.js'

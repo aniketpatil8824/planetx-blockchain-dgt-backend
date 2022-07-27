@@ -19,7 +19,6 @@ const createAccount = async (username) => {
 }
 
 export const updatePoints = async (req, res) => {
-  logger.info(req.body)
   try {
     const info = req.body
     const user = await UserPoints.findOne({ username: info.username }).exec()
@@ -29,7 +28,6 @@ export const updatePoints = async (req, res) => {
       logger.info(account)
       responseUtils.response.successResponse(res, 'Save Data', { signingData: account })
     } else {
-      logger.info(user)
       responseUtils.response.successResponse(res, 'Goty Data', { signingData: user })
     }
   } catch (err) {
@@ -39,6 +37,5 @@ export const updatePoints = async (req, res) => {
 }
 
 export const verifyCurrentPoints = async (req, res) => {
-  console.log(req.body)
-  responseUtils.response.successResponse(res, 'Verification Successful', { signature: 'result verifuy' })
+  responseUtils.response.successResponse(res, 'Verification Successful', { response: 'ethRes' })
 }

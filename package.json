@@ -9,6 +9,8 @@
     "contracts-compile": "cd contracts-hardhat && npx hardhat compile"
   },
   "dependencies": {
+    "@ethereumjs/common": "^2.6.5",
+    "@ethereumjs/tx": "^3.5.2",
     "amqplib": "^0.10.0",
     "app-root-path": "^3.0.0",
     "compression": "^1.7.4",
