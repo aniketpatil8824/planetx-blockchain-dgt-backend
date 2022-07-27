@@ -1,7 +1,7 @@
 import * as responseUtils from '../../utilities/responseUtils'
 import logger from '../../utilities/logger.js'
 import UserPoints from '../../database/userPoints.js'
-import { generateId } from '../../utilities/web3Utils'
+import { createTx, generateId, getAdminWallet } from '../../utilities/web3Utils'
 
 const createAccount = async (username) => {
   try {
@@ -37,5 +37,12 @@ export const updatePoints = async (req, res) => {
 }
 
 export const verifyCurrentPoints = async (req, res) => {
-  responseUtils.response.successResponse(res, 'Verification Successful', { response: 'ethRes' })
+  const ress = await getAdminWallet()
+  const txObject = {
+    to: '0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9',
+    value: '0x'
+  }
+  const txSerialized = await createTx(txObject)
+  logger.info({ txSerialized })
+  responseUtils.response.successResponse(res, 'Verification Successful', { response: txSerialized })
 }

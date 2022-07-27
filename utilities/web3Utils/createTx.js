@@ -2,9 +2,11 @@ import Tx from '@ethereumjs/tx'
 import { getAdminWallet } from './adminWalletManager.js'
 import { web3 } from './web3'
 import { getNonce } from './nonceManager.js'
-import Common from '@ethereumjs/common'
+import Common, { Chain, Hardfork } from '@ethereumjs/common'
+import config from '../../config'
+import logger from '../logger.js'
 
-const customChainParams = { name: 'matic-mumbai', chainId: 80001, networkId: 80001 }
+const customChainParams = { name: 'rinkeby', chainId: 111, networkId: 111 }
 
 export const createTx = async (txObject) => {
   const ADMIN_WALLET = await getAdminWallet()
@@ -21,7 +23,9 @@ export const createTx = async (txObject) => {
   // eslint-disable-next-line new-cap
   const privateKey = new Buffer.from(ADMIN_WALLET.privateKey.slice(2), 'hex')
 
-  const common = Common.custom('goerli', customChainParams)
+  const common = new Common({ chain: Chain.Rinkeby, hardfork: Hardfork.Istanbul })
+  logger.info({ ourprivate: privateKey, config: config.PRIVATE_KEYS.admin, txObject, common })
+
   const tx = new Tx(txObject, { common })
 
   tx.sign(privateKey)

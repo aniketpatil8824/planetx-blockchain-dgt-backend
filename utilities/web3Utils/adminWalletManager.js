@@ -1,11 +1,9 @@
 import ethers from 'ethers'
 import config from '../../config'
-// const { logger } = require('../../utilities/logger')
+import logger from '../logger'
 
 export const getAdminWallet = async () => {
-  const wallet = new ethers.Wallet(config.BNB.ACCOUNTS.ADMIN.PRIVATE_KEY)
-  // logger.log(wallet.address)
+  const wallet = new ethers.Wallet(config.PRIVATE_KEYS.admin)
+  logger.log(wallet)
   return wallet
 }
-
-// logger.log( module.exports.getAdminWallet().privateKey);
