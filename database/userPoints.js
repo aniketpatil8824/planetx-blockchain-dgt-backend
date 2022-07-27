@@ -15,6 +15,17 @@ const userPointsSchema = new Schema({
       }
     }
   },
+  userId: {
+    type: String,
+    trim: true,
+    required: true,
+    unique: true,
+    validate (userId) {
+      if (validator.isEmpty(userId)) {
+        throw new Error('userId field can not be empty!')
+      }
+    }
+  },
   points: [Number]
 }, {
   timestamps: {
