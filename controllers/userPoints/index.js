@@ -3,6 +3,7 @@ import logger from '../../utilities/logger.js'
 import UserPoints from '../../database/userPoints.js'
 import { createTx, generateId, getRootandProof } from '../../utilities/web3Utils'
 import { updateUserPoints } from '../../services/dgtpoints/updatePoints'
+import { verifyCurrent } from '../../services/dgtpoints/verifyPoints'
 
 const createAccount = async (username, points) => {
   try {
@@ -78,11 +79,13 @@ export const updatePoints = async (req, res) => {
 }
 
 export const verifyCurrentPoints = async (req, res) => {
-  const txObject = {
-    to: '0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9',
-    value: '0x'
+  const userName = req.query.user
+  const score = req.query.score
+  const user = await UserPoints.findOne({ username: userName }).exec()
+  if (user) {
+    const response = verifyCurrent(user.userId, score)
+    responseUtils.response.successResponse(res, 'Verification Completed', { response })
+  } else {
+    responseUtils.response.serverErrorResponse(res, ' USer Not Found', { Error: 'User Not Found' })
   }
-  const txSerialized = await createTx(txObject)
-  logger.info({ txSerialized })
-  responseUtils.response.successResponse(res, 'Verification Successful', { response: txSerialized })
 }
