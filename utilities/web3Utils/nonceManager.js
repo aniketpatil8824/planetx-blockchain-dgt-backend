@@ -2,13 +2,13 @@ import { web3 } from './web3'
 import logger from '../logger.js'
 const NONCE = {}
 
-const walletWalidator = (wallet) => {
+const walletValidator = (wallet) => {
   if (!wallet) throw Error('wallet not received')
   if (!web3.utils.isAddress(wallet)) throw Error('invalid address')
 }
 
 export const init = async (wallet) => {
-  walletWalidator(wallet)
+  walletValidator(wallet)
   NONCE[wallet] = await web3.eth.getTransactionCount(wallet, 'pending')
   setInterval(async () => {
     NONCE[wallet] = await web3.eth.getTransactionCount(wallet, 'pending')
@@ -17,12 +17,12 @@ export const init = async (wallet) => {
 }
 
 export const updateNonce = (wallet) => {
-  walletWalidator(wallet)
+  walletValidator(wallet)
   NONCE[wallet]++
 }
 
 export const getNonce = async (wallet) => {
-  walletWalidator(wallet)
+  walletValidator(wallet)
   if (!NONCE[wallet]) await init(wallet)
   logger.debug('Nounce: ' + NONCE[wallet])
   return NONCE[wallet]++

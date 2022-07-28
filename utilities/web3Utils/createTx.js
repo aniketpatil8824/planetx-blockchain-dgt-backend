@@ -1,18 +1,18 @@
-import Tx from '@ethereumjs/tx'
+import _Tx from '@ethereumjs/tx'
 import { getAdminWallet } from './adminWalletManager.js'
 import { web3 } from './web3'
 import { getNonce } from './nonceManager.js'
-import Common, { Chain, Hardfork } from '@ethereumjs/common'
-import config from '../../config'
-import logger from '../logger.js'
+import _Common, { Chain, Hardfork } from '@ethereumjs/common'
 
-const customChainParams = { name: 'rinkeby', chainId: 111, networkId: 111 }
+const Common = _Common.default
+const Tx = _Tx.Transaction
 
 export const createTx = async (txObject) => {
   const ADMIN_WALLET = await getAdminWallet()
   const adminAddress = ADMIN_WALLET.address
 
   txObject.from = adminAddress
+  txObject.chainId = 4
 
   const gasPrice = await web3.eth.getGasPrice()
   txObject.gasPrice = web3.utils.toHex(gasPrice)
@@ -20,11 +20,12 @@ export const createTx = async (txObject) => {
   const nonceCount = await getNonce(adminAddress)
   txObject.nonce = web3.utils.toHex(nonceCount)
 
+  console.log({ txObject })
+
   // eslint-disable-next-line new-cap
   const privateKey = new Buffer.from(ADMIN_WALLET.privateKey.slice(2), 'hex')
 
   const common = new Common({ chain: Chain.Rinkeby, hardfork: Hardfork.Istanbul })
-  logger.info({ ourprivate: privateKey, config: config.PRIVATE_KEYS.admin, txObject, common })
 
   const tx = new Tx(txObject, { common })
 

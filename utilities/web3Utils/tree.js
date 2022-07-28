@@ -1,5 +1,7 @@
-import MerkleTree from 'merkletreejs'
+import _MerkleTree from 'merkletreejs'
 import web3Utils from 'web3-utils'
+
+const MerkleTree = _MerkleTree.default
 
 const { keccak256, sha3, soliditySha3 } = web3Utils
 export const getRootandProof = (leavesArray, index) => {

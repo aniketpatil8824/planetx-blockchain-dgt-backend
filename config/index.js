@@ -49,7 +49,8 @@ export default {
   API_KEY: process.env.API_KEY,
 
   QUEUE: {
-    CONNECTION_URL: process.env.RMQ_CONN_URL
+    CONNECTION_URL: process.env.RMQ_CONN_URL,
+    UPDATE_DGT: 'updateDgtPoints'
   },
 
   DB_CONSTANTS: dbConstants,
