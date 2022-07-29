@@ -32,7 +32,7 @@ export default {
 
   NETWORK: {
     ETH: {
-      RPC_API: process.env.RPC_API
+      RPC_API: 'https://rinkeby.infura.io/v3/718ba44fdcc245ed819e36e72e70d470'
     }
   },
 

@@ -14,7 +14,7 @@ const createUpdateObject = async (data) => {
 
   const transactionObject = {
     to: config.CONTRACT.DGT_ADDRESS,
-    value: '0x',
+    value: '0x0',
     data: myContract.methods
       .updatePoints(_beneficiary, _root, _proof, _timestamp).encodeABI()
   }
@@ -26,26 +26,16 @@ export const updatePoints = async (data) => {
   const txObject = await createUpdateObject(data)
   const txSerialized = await createTx(txObject)
 
-  web3.eth
-    .sendSignedTransaction(txSerialized)
-    .on('receipt', async (receipt) => {
-      //   await addTransaction(req.body)
-      logger.info({
-        txHash: receipt.transactionHash,
-        status: receipt.status
-      })
-      // await sendTxData(
-      //     {
-      //         txHash: receipt.transactionHash,
-      //         status: receipt.status,
-      //         tokenId: data.tokenId,
-      //         type: "auction_create",
-      //     },
-      //     "/v1/asset/order/orderTx"
-      // );
+  console.log('Before Asynch call')
+
+  web3.eth.sendSignedTransaction(txSerialized)
+    .once('transactionHash', function (hash) { console.log('txHash', hash) })
+    .once('receipt', function (receipt) { console.log('receipt', receipt) })
+    .on('confirmation', function (confNumber, receipt) { console.log('confNumber', confNumber, 'receipt', receipt) })
+    .on('error', function (error) { console.log('error', error) })
+    .then(function (receipt) {
+      console.log('trasaction mined!', receipt)
     })
-    .on('error', async (error) => {
-    //   await init(adminAddress)
-      logger.info(error)
-    })
+
+  console.log('After Asynch Call')
 }

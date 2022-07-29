@@ -16,3 +16,10 @@ export const verifyPrevious = async (userId, timestamp, points) => {
     .call()
   return { verified }
 }
+
+export const getOwner = async () => {
+  const verified = await myContract.methods
+    .owner()
+    .call()
+  return { verified }
+}

@@ -1,9 +1,9 @@
 import * as responseUtils from '../../utilities/responseUtils'
 import logger from '../../utilities/logger.js'
 import UserPoints from '../../database/userPoints.js'
-import { createTx, generateId, getRootandProof } from '../../utilities/web3Utils'
+import { generateId, getRootandProof } from '../../utilities/web3Utils'
 import { updateUserPoints } from '../../services/dgtpoints/updatePoints'
-import { verifyCurrent } from '../../services/dgtpoints/verifyPoints'
+import { getOwner, verifyCurrent } from '../../services/dgtpoints/verifyPoints'
 
 const createAccount = async (username, points) => {
   try {
@@ -83,9 +83,24 @@ export const verifyCurrentPoints = async (req, res) => {
   const score = req.query.score
   const user = await UserPoints.findOne({ username: userName }).exec()
   if (user) {
+    console.log({ user })
     const response = verifyCurrent(user.userId, score)
     responseUtils.response.successResponse(res, 'Verification Completed', { response })
   } else {
-    responseUtils.response.serverErrorResponse(res, ' USer Not Found', { Error: 'User Not Found' })
+    responseUtils.response.serverErrorResponse(res, ' User Information Not Found', { Error: 'User Not Found' })
   }
+}
+
+export const verifyPreviousPoints = async (req, res) => {
+  // const userName = req.query.user
+  // const score = req.query.score
+  const user = await getOwner()
+  responseUtils.response.successResponse(res, 'Owner Fetched', { user })
+
+  // if (user) {
+  //   // const response = verifyCurrent(user.userId, score)
+  //   responseUtils.response.successResponse(res, 'Verification Completed', { response })
+  // } else {
+  //   responseUtils.response.serverErrorResponse(res, ' USer Not Found', { Error: 'User Not Found' })
+  // }
 }
