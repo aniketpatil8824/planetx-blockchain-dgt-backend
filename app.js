@@ -7,8 +7,6 @@ import compression from 'compression'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
-import { consumeQueue } from './utilities/queueUtils'
-import config from './config'
 
 import logger from './utilities/logger.js'
 import routes from './routes'
@@ -41,13 +39,6 @@ app.use(morgan('combined', {
     return req.url === '/health'
   }
 }))
-
-// Queue Consumers Initialization
-try {
-  consumeQueue(config.QUEUE.LIST.DGT, consumeMintTicketByCryptoQueue)
-} catch (err) {
-  console.log(err)
-}
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
