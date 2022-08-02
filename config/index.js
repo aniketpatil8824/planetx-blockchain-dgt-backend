@@ -6,6 +6,8 @@ import { fileURLToPath } from 'url'
 import dbConstants from './dbConstants.json' assert {type: "json"}
 import contract from './contract.json' assert {type: "json"}
 import privateKeys from './privateKeys.json' assert {type: "json"}
+import queueList from './queue.json' assert {type: "json"}
+
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -50,7 +52,7 @@ export default {
 
   QUEUE: {
     CONNECTION_URL: process.env.RMQ_CONN_URL,
-    UPDATE_DGT: 'updateDgtPoints'
+    LIST: queueList
   },
 
   DB_CONSTANTS: dbConstants,

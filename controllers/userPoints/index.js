@@ -4,6 +4,7 @@ import UserPoints from '../../database/userPoints.js'
 import { generateId, getRootandProof } from '../../utilities/web3Utils'
 import { updateUserPoints } from '../../services/dgtpoints/updatePoints'
 import { getOwner, verifyCurrent, verifyPrevious } from '../../services/dgtpoints/verifyPoints'
+import { publishToQueue } from '../../utilities/queueUtils'
 
 const createAccount = async (username, points) => {
   try {
