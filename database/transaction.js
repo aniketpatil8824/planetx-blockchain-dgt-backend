@@ -1,15 +1,15 @@
 'use strict'
+import mongoose from 'mongoose'
+import config from '../config'
 
-const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const config = require('../config')
 
 const transactionSchema = new Schema({
   _id: String,
   txHash: String,
   type: {
     type: String,
-    enum: ['CREATE_ASSET', 'MINT', 'SELL', 'BUY', 'AUCTION', 'BOTH', 'BID', 'OTHER'],
+    enum: ['UPDATE_DGT', 'OTHER'],
     default: 'OTHER'
   },
   status: {

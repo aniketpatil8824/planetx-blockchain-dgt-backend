@@ -30,7 +30,7 @@ export const createTx = async (txObject) => {
   // eslint-disable-next-line new-cap
   const privateKey = new Buffer.from(ADMIN_WALLET.privateKey.slice(2), 'hex')
 
-  const common = new Common({ chain: Chain.Rinkeby })
+  const common = new Common({ chain: Chain.Goerli })
 
   const tx = new Tx(payload, { common })
 

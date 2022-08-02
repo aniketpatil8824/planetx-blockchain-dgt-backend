@@ -2,9 +2,9 @@ import * as responseUtils from '../../utilities/responseUtils'
 import logger from '../../utilities/logger.js'
 import UserPoints from '../../database/userPoints.js'
 import { generateId, getRootandProof } from '../../utilities/web3Utils'
-import { updateUserPoints } from '../../services/dgtpoints/updatePoints'
-import { getOwner, verifyCurrent, verifyPrevious } from '../../services/dgtpoints/verifyPoints'
-import { publishToQueue } from '../../utilities/queueUtils'
+import { verifyCurrent, verifyPrevious } from '../../services/dgtpoints/verifyPoints'
+import { publiser } from '../../utilities/queueUtils'
+import config from '../../config'
 
 const createAccount = async (username, points) => {
   try {
@@ -22,7 +22,7 @@ const createAccount = async (username, points) => {
   }
 }
 
-const updateRequest = async (userId, pointsArray, timestamp) => {
+const updateAccount = async (userId, pointsArray, timestamp) => {
   const user = await UserPoints.findOneAndUpdate({ userId }, { points: pointsArray })
   if (user) {
     return await setTransaction(userId, pointsArray, timestamp)
@@ -44,8 +44,8 @@ const setTransaction = async (userId, pointsArray, timestamp) => {
     timestamp
   }
   logger.info({ payload })
-  const sendTransaction = await updateUserPoints(payload)
-  return sendTransaction
+  await publiser(config.QUEUE.LIST.DGT, payload)
+  return { response: 'Successfully updated the points' }
 }
 
 export const updatePoints = async (req, res) => {
@@ -64,7 +64,7 @@ export const updatePoints = async (req, res) => {
       const pointsArray = user.points
       pointsArray.push(info.score)
       console.log(pointsArray)
-      const updated = updateRequest(user.userId, pointsArray, info.timestamp)
+      const updated = updateAccount(user.userId, pointsArray, info.timestamp)
       if (updated) {
         logger.info(updated)
         const response = setTransaction(user.userId, pointsArray, info.timestamp)

@@ -8,11 +8,14 @@ import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 
+import { consumer } from './utilities/queueUtils'
 import logger from './utilities/logger.js'
 import routes from './routes'
 import rateLimiter from './middleware/rateLimiter.js'
 
 import './database'
+import config from './config/index.js'
+import { consumeUpdateDgt } from './queueConsumers/dgt.js'
 
 const app = express()
 
@@ -31,6 +34,9 @@ app.use(cookieParser())
 app.use(cors())
 app.use(helmet())
 app.use(express.static(path.join(__dirname, 'public')))
+
+consumer(config.QUEUE.LIST.updateDgt, consumeUpdateDgt)
+
 app.use('/', routes)
 
 app.use(morgan('combined', {
