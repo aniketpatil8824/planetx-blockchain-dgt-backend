@@ -29,6 +29,7 @@
     "merkletreejs": "^0.2.32",
     "mongoose": "^6.3.5",
     "morgan": "^1.9.1",
+    "uuidv4": "^6.2.13",
     "validator": "^13.7.0",
     "web3": "^1.7.4",
     "web3-utils": "^1.7.4",

@@ -5,6 +5,8 @@ import { generateId, getRootandProof } from '../../utilities/web3Utils'
 import { verifyCurrent, verifyPrevious } from '../../services/dgtpoints/verifyPoints'
 import { publiser } from '../../utilities/queueUtils'
 import config from '../../config'
+import { uuid } from 'uuidv4'
+import Transaction from '../../database/transaction.js'
 
 const createAccount = async (username, points) => {
   try {
@@ -37,15 +39,15 @@ const updateAccount = async (userId, pointsArray, timestamp) => {
 const setTransaction = async (userId, pointsArray, timestamp) => {
   const index = pointsArray.length - 1
   const setTree = getRootandProof(pointsArray, index)
-  const payload = {
-    userId,
-    root: setTree.rootHash,
-    proof: setTree.hexProof,
-    timestamp
-  }
-  logger.info({ payload })
-  await publiser(config.QUEUE.LIST.DGT, payload)
-  return { response: 'Successfully updated the points' }
+
+  const txId = uuid()
+  const tx = new Transaction({ _id: txId, type: 'UPDATE_DGT' })
+  await tx.save()
+  await tx.setProcessing()
+
+  await publiser(config.QUEUE.LIST.DGT, { userId, root: setTree.rootHash, proof: setTree.hexProof, timestamp, txId })
+
+  return { txId }
 }
 
 export const updatePoints = async (req, res) => {
@@ -56,7 +58,7 @@ export const updatePoints = async (req, res) => {
       const account = await createAccount(info.username, info.score)
       if (account) {
         const response = setTransaction(account.userId, account.points, info.timestamp)
-        responseUtils.response.successResponse(res, 'Goty Data', { signingData: response })
+        responseUtils.response.successResponse(res, 'Successfully Updated', response)
       } else {
         responseUtils.response.serverErrorResponse(res, { Error: 'Could Not Create Account' })
       }
@@ -68,7 +70,7 @@ export const updatePoints = async (req, res) => {
       if (updated) {
         logger.info(updated)
         const response = setTransaction(user.userId, pointsArray, info.timestamp)
-        responseUtils.response.successResponse(res, 'new Data', { signingData: response })
+        responseUtils.response.successResponse(res, 'Successfully Updated', response)
       } else {
         responseUtils.response.serverErrorResponse(res, { Error: 'Something went wrong' })
       }
