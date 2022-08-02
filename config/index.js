@@ -34,7 +34,7 @@ export default {
 
   NETWORK: {
     ETH: {
-      RPC_API: 'https://goerli.infura.io/v3/718ba44fdcc245ed819e36e72e70d470'
+      RPC_API: 'process.env.RPC_API'
     }
   },
 
