@@ -1,4 +1,4 @@
-import { updateUserPoints } from '../../services/dgtpoints/updatePoints'
+import { updateUserPoints } from '../../services/dgtpoints'
 import logger from '../../utilities/logger'
 
 export const consumeUpdateDgt = async (data) => {
