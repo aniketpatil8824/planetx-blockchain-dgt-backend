@@ -7,13 +7,12 @@ import compression from 'compression'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
-
 import logger from './utilities/logger.js'
 import routes from './routes'
 import rateLimiter from './middleware/rateLimiter.js'
 
 import './database'
-import './utilities/queueUtils'
+import './queueConsumers'
 
 const app = express()
 
@@ -32,6 +31,7 @@ app.use(cookieParser())
 app.use(cors())
 app.use(helmet())
 app.use(express.static(path.join(__dirname, 'public')))
+
 app.use('/', routes)
 
 app.use(morgan('combined', {

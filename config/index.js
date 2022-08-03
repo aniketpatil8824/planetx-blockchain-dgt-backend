@@ -5,6 +5,9 @@ import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import dbConstants from './dbConstants.json' assert {type: "json"}
 import contract from './contract.json' assert {type: "json"}
+import privateKeys from './privateKeys.json' assert {type: "json"}
+import queueList from './queue.json' assert {type: "json"}
+
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -48,12 +51,15 @@ export default {
   API_KEY: process.env.API_KEY,
 
   QUEUE: {
-    CONNECTION_URL: process.env.RMQ_CONN_URL
+    CONNECTION_URL: process.env.RMQ_CONN_URL,
+    LIST: queueList
   },
 
   DB_CONSTANTS: dbConstants,
 
   CONTRACT: contract,
+
+  PRIVATE_KEYS: privateKeys,
 
   KEY_SECURE_PASSWORD: process.env.KEY_SECURE_PASSWORD || 'planetx12345'
 
