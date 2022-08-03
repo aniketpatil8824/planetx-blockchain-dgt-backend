@@ -45,7 +45,7 @@ const setTransaction = async (userId, pointsArray, timestamp) => {
   await tx.save()
   await tx.setProcessing()
 
-  await publiser(config.QUEUE.LIST.DGT, { userId, root: setTree.rootHash, proof: setTree.hexProof, timestamp, txId })
+  await publiser(config.QUEUE.LIST.updateDgt, { userId, root: setTree.rootHash, proof: setTree.hexProof, timestamp, txId })
 
   return { txId }
 }

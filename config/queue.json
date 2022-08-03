@@ -1,3 +1,7 @@
 {
-    "updateDgt":"updateDgt"
+    "updateDgt":"updateDgt",
+    "createSchedule":"createSchedule",
+    "revokeSchedule":"revokeSchedule",
+    "withdrawFunds":"withdrawFunds",
+    "releaseFunds":"releaseFunds"
 }
