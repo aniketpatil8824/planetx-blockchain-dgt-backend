@@ -34,7 +34,7 @@ export default {
 
   NETWORK: {
     ETH: {
-      RPC_API: 'process.env.RPC_API'
+      RPC_API: process.env.RPC_API
     }
   },
 
