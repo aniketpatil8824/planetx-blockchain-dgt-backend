@@ -29,6 +29,11 @@
             "date": 1659448554712,
             "name": "/app/logs/app-2022-08-02.log",
             "hash": "75d5ec95803b55d63b35219153d90bafc086582b64e38633b3ee4c1fe1389983"
+        },
+        {
+            "date": 1659503985675,
+            "name": "/app/logs/app-2022-08-03.log",
+            "hash": "82bcb62c9fb5bf51405e562731cec500d116f1ef5b3feffb0292bc5190ded359"
         }
     ],
     "hashType": "sha256"

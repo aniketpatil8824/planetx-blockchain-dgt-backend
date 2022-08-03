@@ -66,4 +66,4 @@ transactionSchema.methods.setProcessing = async function () {
 }
 
 const Transaction = mongoose.model('transaction', transactionSchema)
-module.exports = Transaction
+export default Transaction
