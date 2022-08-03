@@ -1,7 +1,5 @@
 'use strict'
 import mongoose from 'mongoose'
-import config from '../config'
-
 const Schema = mongoose.Schema
 
 const transactionSchema = new Schema({
