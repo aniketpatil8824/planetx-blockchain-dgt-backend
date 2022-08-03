@@ -1,1 +1,1 @@
-export * from './dgt'
+export * from './consumerInit'
