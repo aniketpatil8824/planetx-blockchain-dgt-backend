@@ -20,3 +20,7 @@ export const getRootandProof = (leavesArray, index) => {
 export const generateId = (username) => {
   return sha3(username)
 }
+
+export const generateScheduleId = (userAddress, index) => {
+  return soliditySha3(userAddress, index)
+}

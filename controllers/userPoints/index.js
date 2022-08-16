@@ -2,11 +2,11 @@ import * as responseUtils from '../../utilities/responseUtils'
 import logger from '../../utilities/logger.js'
 import UserPoints from '../../database/userPoints.js'
 import { generateId, getRootandProof } from '../../utilities/web3Utils'
-import { verifyCurrent, verifyPrevious } from '../../services/dgtpoints/verifyPoints'
 import { publiser } from '../../utilities/queueUtils'
 import config from '../../config'
 import { uuid } from 'uuidv4'
 import Transaction from '../../database/transaction.js'
+import { verifyCurrent, verifyPrevious } from '../../services/dgtpoints'
 
 const createAccount = async (username, points) => {
   try {
@@ -45,7 +45,7 @@ const setTransaction = async (userId, pointsArray, timestamp) => {
   await tx.save()
   await tx.setProcessing()
 
-  await publiser(config.QUEUE.LIST.DGT, { userId, root: setTree.rootHash, proof: setTree.hexProof, timestamp, txId })
+  await publiser(config.QUEUE.LIST.updateDgt, { userId, root: setTree.rootHash, proof: setTree.hexProof, timestamp, txId })
 
   return { txId }
 }

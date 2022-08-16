@@ -1,7 +1,6 @@
 import SignNonce from '../../database/signNonce.js'
 import * as responseUtils from '../../utilities/responseUtils'
 import logger from '../../utilities/logger.js'
-import config from '../../config'
 import { getSigningData, verifySignature } from '../../utilities/web3Utils'
 
 export const getAccountNounce = async (req, res) => {

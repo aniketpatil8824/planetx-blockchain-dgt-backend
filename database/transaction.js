@@ -7,7 +7,7 @@ const transactionSchema = new Schema({
   txHash: String,
   type: {
     type: String,
-    enum: ['UPDATE_DGT', 'OTHER'],
+    enum: ['UPDATE_DGT', 'CREATE_SCHEDULE', 'REVOKE_SCHEDULE', 'WITHDRAW_FUNDS', 'RELEASE_FUNDS', 'OTHER'],
     default: 'OTHER'
   },
   status: {
