@@ -1,5 +1,6 @@
 import config from '../config'
 import { consumer } from '../utilities/queueUtils'
+import { consumeUpdateCompanyESP } from './company'
 import { consumeUpdateDgt } from './dgt'
 import { createNewSchedule, releaseUserScheduleAmount, revokeUserSchedule, withdrawAmounts } from './vesting/updates'
 
@@ -21,4 +22,8 @@ export const releaseFunds = () => {
 
 export const withdrawFunds = () => {
   consumer(config.QUEUE.LIST.withdrawFunds, withdrawAmounts)
+}
+
+export const updateCompanyESP = () => {
+  consumer(config.QUEUE.LIST.updateCompanyESP, consumeUpdateCompanyESP)
 }

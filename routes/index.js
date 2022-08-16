@@ -1,5 +1,7 @@
 import express from 'express'
 import userRoute from './user'
+import vestingRoute from './vesting'
+import companyRoute from './company'
 import adminRoute from './admin'
 import merchantRoute from './merchant'
 import authRoute from './auth'
@@ -14,6 +16,8 @@ router.get('/', function (req, res, next) {
 })
 
 router.use('/user', verifyAPIKey, userRoute)
+router.use('/vesting', verifyAPIKey, vestingRoute)
+router.use('/company', verifyAPIKey, companyRoute)
 router.use('/admin', verifyAPIKey, adminRoute)
 router.use('/auth', authRoute)
 router.use('/merchant', verifyAPIKey, merchantRoute)
