@@ -12,7 +12,7 @@ import routes from './routes'
 import rateLimiter from './middleware/rateLimiter.js'
 
 import './database'
-import { consumeUpdateDGT } from './queueConsumers/consumerInit.js'
+import consumerInit from './queueConsumers/consumerInit.js'
 
 const app = express()
 
@@ -31,7 +31,7 @@ app.use(cookieParser())
 app.use(cors())
 app.use(helmet())
 app.use(express.static(path.join(__dirname, 'public')))
-consumeUpdateDGT()
+consumerInit()
 app.use('/', routes)
 
 app.use(morgan('combined', {
