@@ -3,5 +3,6 @@
     "createSchedule":"createSchedule",
     "revokeSchedule":"revokeSchedule",
     "withdrawFunds":"withdrawFunds",
-    "releaseFunds":"releaseFunds"
+    "releaseFunds":"releaseFunds",
+    "updateCompanyESP":"updateCompanyESP"
 }
