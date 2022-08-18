@@ -101,7 +101,7 @@ export const verifyPreviousPoints = async (req, res) => {
   const user = await UserPoints.findOne({ username: userName }).exec()
   if (user) {
     console.log({ user })
-    const response = verifyPrevious(user.userId, timestamp, score)
+    const response = await verifyPrevious(user.userId, timestamp, score)
     responseUtils.response.successResponse(res, 'Verification Completed', { response })
   } else {
     responseUtils.response.serverErrorResponse(res, ' User Information Not Found', { Error: 'User Not Found' })

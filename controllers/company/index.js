@@ -87,7 +87,7 @@ export const verifyCurrentPoints = async (req, res) => {
   const user = await CompanyScores.findOne({ username: userName }).exec()
   if (user) {
     console.log({ user })
-    const response = verifyCurrentCompanyESP(user.userId, score)
+    const response = await verifyCurrentCompanyESP(user.userId, score)
     responseUtils.response.successResponse(res, 'Verification Completed', { response })
   } else {
     responseUtils.response.serverErrorResponse(res, ' User Information Not Found', { Error: 'User Not Found' })
@@ -101,7 +101,7 @@ export const verifyPreviousPoints = async (req, res) => {
   const user = await CompanyScores.findOne({ username: userName }).exec()
   if (user) {
     console.log({ user })
-    const response = verifyPreviousCompanyESP(user.userId, timestamp, score)
+    const response = await verifyPreviousCompanyESP(user.userId, timestamp, score)
     responseUtils.response.successResponse(res, 'Verification Completed', { response })
   } else {
     responseUtils.response.serverErrorResponse(res, ' User Information Not Found', { Error: 'User Not Found' })
