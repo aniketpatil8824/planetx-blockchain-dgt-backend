@@ -4,7 +4,7 @@ import { consumeUpdateCompanyESP } from './company'
 import { consumeUpdateDgt } from './dgt'
 import { createNewSchedule, releaseUserScheduleAmount, revokeUserSchedule, withdrawAmounts } from './vesting/updates'
 
-export const consumerInit = () => {
+export const consumeUpdateDGT = () => {
   consumer(config.QUEUE.LIST.updateDgt, consumeUpdateDgt)
 }
 

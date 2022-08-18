@@ -768,7 +768,7 @@
             "type": "function"
         }
     ],
-    "DGT_ADDRESS": "0x5A74cCd8c57828B61B6184Cdebca47809A659F92",
+    "DGT_ADDRESS": "0x45f360333200d150A6e761f1b075D5fdF0C507d4",
     "VESTING_ABI": [
         {
             "inputs": [
@@ -1501,5 +1501,5 @@
             "type": "function"
         }
     ],
-    "CompanyESP_ADDRESS": "0xa932Ce499f1Efcc5a52e53B2F2AcC5B9365eb7C2"
+    "CompanyESP_ADDRESS": "0x64E475fC56509C1576f084482F2AF05178D20084"
 }
