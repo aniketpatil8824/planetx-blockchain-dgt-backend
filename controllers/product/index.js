@@ -6,7 +6,7 @@ import { publiser } from '../../utilities/queueUtils'
 import config from '../../config'
 import { uuid } from 'uuidv4'
 import Transaction from '../../database/transaction.js'
-import { verifyCurrentCompanyESP, verifyPreviousCompanyESP } from '../../services/companyScore'
+import { verifyCurrentProductESP, verifyPreviousProductESP } from '../../services/productScore'
 
 const createAccount = async (username, points) => {
   try {
@@ -87,7 +87,7 @@ export const verifyCurrentPoints = async (req, res) => {
   const user = await ProductScores.findOne({ username: userName }).exec()
   if (user) {
     console.log({ user })
-    const response = await verifyCurrentCompanyESP(user.userId, score)
+    const response = await verifyCurrentProductESP(user.userId, score)
     responseUtils.response.successResponse(res, 'Verification Completed', { response })
   } else {
     responseUtils.response.serverErrorResponse(res, ' User Information Not Found', { Error: 'User Not Found' })
@@ -101,7 +101,7 @@ export const verifyPreviousPoints = async (req, res) => {
   const user = await ProductScores.findOne({ username: userName }).exec()
   if (user) {
     console.log({ user })
-    const response = await verifyPreviousCompanyESP(user.userId, timestamp, score)
+    const response = await verifyPreviousProductESP(user.userId, timestamp, score)
     responseUtils.response.successResponse(res, 'Verification Completed', { response })
   } else {
     responseUtils.response.serverErrorResponse(res, ' User Information Not Found', { Error: 'User Not Found' })
