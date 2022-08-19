@@ -4,5 +4,6 @@
     "revokeSchedule":"revokeSchedule",
     "withdrawFunds":"withdrawFunds",
     "releaseFunds":"releaseFunds",
-    "updateCompanyESP":"updateCompanyESP"
+    "updateCompanyESP":"updateCompanyESP",
+    "updateProductESP":"updateProductESP"
 }
