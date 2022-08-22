@@ -5,7 +5,7 @@ import { generateId, getRootandProof } from '../../utilities/web3Utils'
 import { verifyCurrent, verifyPrevious } from '../../services/dgtpoints/verifyPoints'
 import { publiser } from '../../utilities/queueUtils'
 import config from '../../config'
-import { uuid } from 'uuidv4'
+import { v4 as uuid } from 'uuid'
 import Transaction from '../../database/transaction.js'
 
 const createAccount = async (username, points) => {

@@ -3,6 +3,7 @@ import { updatePoints, verifyCurrentPoints, verifyPreviousPoints } from '../../c
 const router = express.Router()
 
 /* GET users listing. */
+
 router.post('/updatePoints', updatePoints)
 router.get('/verifyCurrentPoints', verifyCurrentPoints)
 router.get('/verifyPreviousPoints', verifyPreviousPoints)
