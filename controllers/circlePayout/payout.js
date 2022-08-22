@@ -11,7 +11,7 @@ export const payout = async (req, res) => {
 
   try {
     if (!reciepientAddress || !amount) {
-      return responseUtils.response.badRequestErrorResponse(res, '')
+      return responseUtils.response.badRequestErrorResponse(res, 'All Fields Required')
     }
     const txId = uuid()
     const tx = new Payout({ _id: txId })
