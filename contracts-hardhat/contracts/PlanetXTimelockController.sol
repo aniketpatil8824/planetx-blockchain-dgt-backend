@@ -25,7 +25,7 @@ contract PlanetXTimelockController is
         public
         view
         virtual
-        override(TimelockControllerUpgradeable, ERC1155Receiver, onERC721Received, onERC1155Received, onERC1155BatchReceived)
+        override(TimelockControllerUpgradeable, ERC1155Receiver, onERC721Received, onERC1155BatchReceived, onERC1155Received)
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
