@@ -4,24 +4,13 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const companyScoreSchema = new Schema({
-  username: {
+  companyId: {
     type: String,
     trim: true,
     required: true,
     unique: true,
-    validate (username) {
-      if (validator.isEmpty(username)) {
-        throw new Error('Username field can not be empty!')
-      }
-    }
-  },
-  userId: {
-    type: String,
-    trim: true,
-    required: true,
-    unique: true,
-    validate (userId) {
-      if (validator.isEmpty(userId)) {
+    validate (companyId) {
+      if (validator.isEmpty(companyId)) {
         throw new Error('userId field can not be empty!')
       }
     }
@@ -34,5 +23,5 @@ const companyScoreSchema = new Schema({
   }
 })
 
-const CompanyScores = mongoose.model('userPoints', companyScoreSchema)
+const CompanyScores = mongoose.model('companyScores', companyScoreSchema)
 export default CompanyScores

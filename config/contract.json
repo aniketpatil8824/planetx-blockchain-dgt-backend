@@ -768,7 +768,7 @@
             "type": "function"
         }
     ],
-    "DGT_ADDRESS": "0x45f360333200d150A6e761f1b075D5fdF0C507d4",
+    "DGT_ADDRESS": "0x684c9D79A16ECE1a1edeD55998891E7E0506D61e",
     "VESTING_ABI": [
         {
             "inputs": [
@@ -1501,7 +1501,7 @@
             "type": "function"
         }
     ],
-    "CompanyESP_ADDRESS": "0x64E475fC56509C1576f084482F2AF05178D20084",
+    "CompanyESP_ADDRESS": "0x2B5a5c2513Bb19943A89535312F4DD699dB0BD5C",
     "ProductESP_ABI": [
         {
             "inputs": [],
@@ -1674,5 +1674,5 @@
             "type": "function"
         }
     ],
-    "ProductESP_ADDRESS": "0x4429C111C4538Af71E7B630A568cefF23583D012"
+    "ProductESP_ADDRESS": "0xCeEA9791934787DB159133249123Ccf03001648C"
 }

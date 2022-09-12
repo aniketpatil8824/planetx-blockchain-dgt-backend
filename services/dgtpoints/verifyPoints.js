@@ -12,7 +12,7 @@ export const verifyCurrent = async (userId, points) => {
 
 export const verifyPrevious = async (userId, timestamp, points) => {
   const verified = await myContract.methods
-    .verifyCurrentBalance(userId, timestamp, points)
+    .verifyHistoricalBalance(userId, timestamp, points)
     .call()
   return { verified }
 }
