@@ -7,7 +7,7 @@ const createUpdateObject = async (userId, root, proof, timestamp) => {
   const myContract = new web3.eth.Contract(config.CONTRACT.ProductESP_ABI, config.CONTRACT.ProductESP_ADDRESS)
 
   const transactionObject = {
-    to: config.CONTRACT.CompanyESP_ADDRESS,
+    to: config.CONTRACT.ProductESP_ADDRESS,
     value: '0x0',
     data: myContract.methods
       .updatePoints(userId, root, proof, timestamp).encodeABI()

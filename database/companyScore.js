@@ -9,8 +9,8 @@ const companyScoreSchema = new Schema({
     trim: true,
     required: true,
     unique: true,
-    validate (userId) {
-      if (validator.isEmpty(userId)) {
+    validate (companyId) {
+      if (validator.isEmpty(companyId)) {
         throw new Error('userId field can not be empty!')
       }
     }

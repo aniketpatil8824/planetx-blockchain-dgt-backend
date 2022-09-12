@@ -9,8 +9,8 @@ const productScoreSchema = new Schema({
     trim: true,
     required: true,
     unique: true,
-    validate (userId) {
-      if (validator.isEmpty(userId)) {
+    validate (productId) {
+      if (validator.isEmpty(productId)) {
         throw new Error('userId field can not be empty!')
       }
     }
