@@ -34,5 +34,5 @@ const productScoreSchema = new Schema({
   }
 })
 
-const ProductScores = mongoose.model('userPoints', productScoreSchema)
+const ProductScores = mongoose.model('productScore', productScoreSchema)
 export default ProductScores

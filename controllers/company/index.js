@@ -8,12 +8,10 @@ import { uuid } from 'uuidv4'
 import Transaction from '../../database/transaction.js'
 import { verifyCurrentCompanyESP, verifyPreviousCompanyESP } from '../../services/companyScore'
 
-const createAccount = async (username, points) => {
+const createAccount = async (companyId, points) => {
   try {
-    const userId = generateId(username)
     const newUser = new CompanyScores({
-      username,
-      userId,
+      companyId,
       points: [points]
     })
     const user = await newUser.save()
@@ -24,10 +22,10 @@ const createAccount = async (username, points) => {
   }
 }
 
-const updateAccount = async (userId, pointsArray, timestamp) => {
-  const user = await CompanyScores.findOneAndUpdate({ userId }, { points: pointsArray })
+const updateAccount = async (companyId, pointsArray, timestamp) => {
+  const user = await CompanyScores.findOneAndUpdate({ companyId }, { points: pointsArray })
   if (user) {
-    return await setTransaction(userId, pointsArray, timestamp)
+    return await setTransaction(companyId, pointsArray, timestamp)
   } else {
     return {
       status: 400,
@@ -53,11 +51,11 @@ const setTransaction = async (userId, pointsArray, timestamp) => {
 export const updatePoints = async (req, res) => {
   try {
     const info = req.body
-    const user = await CompanyScores.findOne({ username: info.username }).exec()
+    const user = await CompanyScores.findOne({ companyId: info.companyId }).exec()
     if (!user) {
-      const account = await createAccount(info.username, info.score)
+      const account = await createAccount(info.companyId, info.score)
       if (account) {
-        const response = setTransaction(account.userId, account.points, info.timestamp)
+        const response = setTransaction(account.companyId, account.points, info.timestamp)
         responseUtils.response.successResponse(res, 'Successfully Updated', response)
       } else {
         responseUtils.response.serverErrorResponse(res, { Error: 'Could Not Create Account' })
@@ -66,10 +64,10 @@ export const updatePoints = async (req, res) => {
       const pointsArray = user.points
       pointsArray.push(info.score)
       console.log(pointsArray)
-      const updated = updateAccount(user.userId, pointsArray, info.timestamp)
+      const updated = updateAccount(user.companyId, pointsArray, info.timestamp)
       if (updated) {
         logger.info(updated)
-        const response = setTransaction(user.userId, pointsArray, info.timestamp)
+        const response = setTransaction(user.companyId, pointsArray, info.timestamp)
         responseUtils.response.successResponse(res, 'Successfully Updated', response)
       } else {
         responseUtils.response.serverErrorResponse(res, { Error: 'Something went wrong' })
@@ -82,12 +80,12 @@ export const updatePoints = async (req, res) => {
 }
 
 export const verifyCurrentPoints = async (req, res) => {
-  const userName = req.query.user
+  const companyId = req.query.companyId
   const score = req.query.score
-  const user = await CompanyScores.findOne({ username: userName }).exec()
+  const user = await CompanyScores.findOne({ companyId }).exec()
   if (user) {
     console.log({ user })
-    const response = await verifyCurrentCompanyESP(user.userId, score)
+    const response = await verifyCurrentCompanyESP(user.companyId, score)
     responseUtils.response.successResponse(res, 'Verification Completed', { response })
   } else {
     responseUtils.response.serverErrorResponse(res, ' User Information Not Found', { Error: 'User Not Found' })
@@ -95,13 +93,13 @@ export const verifyCurrentPoints = async (req, res) => {
 }
 
 export const verifyPreviousPoints = async (req, res) => {
-  const userName = req.query.user
+  const companyId = req.query.companyId
   const score = req.query.score
   const timestamp = req.query.time
-  const user = await CompanyScores.findOne({ username: userName }).exec()
+  const user = await CompanyScores.findOne({ companyId }).exec()
   if (user) {
     console.log({ user })
-    const response = await verifyPreviousCompanyESP(user.userId, timestamp, score)
+    const response = await verifyPreviousCompanyESP(user.companyId, timestamp, score)
     responseUtils.response.successResponse(res, 'Verification Completed', { response })
   } else {
     responseUtils.response.serverErrorResponse(res, ' User Information Not Found', { Error: 'User Not Found' })
