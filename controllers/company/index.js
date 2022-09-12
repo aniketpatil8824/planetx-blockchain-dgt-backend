@@ -1,7 +1,7 @@
 import * as responseUtils from '../../utilities/responseUtils'
 import logger from '../../utilities/logger.js'
 import CompanyScores from '../../database/companyScore'
-import { generateId, getRootandProof } from '../../utilities/web3Utils'
+import { getRootandProof } from '../../utilities/web3Utils'
 import { publiser } from '../../utilities/queueUtils'
 import config from '../../config'
 import { uuid } from 'uuidv4'

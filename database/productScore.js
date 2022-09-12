@@ -4,18 +4,7 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const productScoreSchema = new Schema({
-  username: {
-    type: String,
-    trim: true,
-    required: true,
-    unique: true,
-    validate (username) {
-      if (validator.isEmpty(username)) {
-        throw new Error('Username field can not be empty!')
-      }
-    }
-  },
-  userId: {
+  productId: {
     type: String,
     trim: true,
     required: true,
@@ -34,5 +23,5 @@ const productScoreSchema = new Schema({
   }
 })
 
-const ProductScores = mongoose.model('productScore', productScoreSchema)
+const ProductScores = mongoose.model('productScores', productScoreSchema)
 export default ProductScores

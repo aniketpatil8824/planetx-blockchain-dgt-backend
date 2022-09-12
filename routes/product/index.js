@@ -1,5 +1,5 @@
 import express from 'express'
-import { updatePoints, verifyCurrentPoints, verifyPreviousPoints } from '../../controllers/userPoints'
+import { updatePoints, verifyCurrentPoints, verifyPreviousPoints } from '../../controllers/product'
 const router = express.Router()
 
 /* GET users listing. */
