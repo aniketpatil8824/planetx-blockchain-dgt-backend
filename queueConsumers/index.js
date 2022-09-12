@@ -1,1 +1,1 @@
-export * from './consumerInit'
+import consumerInit from './consumerInit.js'
