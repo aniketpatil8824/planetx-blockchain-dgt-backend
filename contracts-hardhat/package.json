@@ -12,7 +12,7 @@
     "@nomiclabs/hardhat-web3": "^2.0.0",
     "@openzeppelin/contracts-upgradeable": "^4.7.3",
     "chai": "^4.3.6",
-    "dotenv": "^16.0.1",
+    "dotenv": "^16.0.2",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^16.0.3",

@@ -4,6 +4,7 @@ pragma solidity >=0.4.22 <0.9.0;
 import "@openzeppelin/contracts-upgradeable/governance/TimelockControllerUpgradeable.sol";
 import "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
 import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 contract PlanetXTimelockController is
     TimelockControllerUpgradeable,
