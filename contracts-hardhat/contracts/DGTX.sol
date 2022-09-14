@@ -4,9 +4,8 @@ pragma solidity >=0.4.22 <0.9.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-contract DGTX is ERC20, ERC20Permit, ERC20Votes, Initializable {
+contract DGTX is ERC20, ERC20Permit, ERC20Votes {
     constructor(uint256 _totalSupply)
         ERC20("DGTX PlanetX", "DGTX")
         ERC20Permit("DGTX PlanetX")

@@ -8,7 +8,7 @@ async function main () {
   const userABI = (await artifacts.readArtifact('TokenVesting')).abi
 
   await saveToConfig('TokenVesting', 'ABI', userABI)
-  const user = await User.deploy('0x001c3f9B0F3B87FAF905c89f85Fc8f90c63e0503')
+  const user = await User.deploy('0xAa3501b86d55a425E70C3bfC9218D7651a832A58')
   await user.deployed()
 
   await saveToConfig('TokenVesting', 'ADDRESS', user.address)
