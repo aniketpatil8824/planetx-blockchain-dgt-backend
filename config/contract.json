@@ -1331,11 +1331,6 @@
     "VESTING_ADDRESS": "0x3034dDB52d0481Fe80111A81B803430094E14644",
     "CompanyESP_ABI": [
         {
-            "inputs": [],
-            "stateMutability": "nonpayable",
-            "type": "constructor"
-        },
-        {
             "anonymous": false,
             "inputs": [
                 {
@@ -1384,6 +1379,13 @@
                 }
             ],
             "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "initialize",
+            "outputs": [],
+            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
@@ -1501,7 +1503,7 @@
             "type": "function"
         }
     ],
-    "CompanyESP_ADDRESS": "0x2B5a5c2513Bb19943A89535312F4DD699dB0BD5C",
+    "CompanyESP_ADDRESS": "0x517D1431ad4a15b28c40A843EE34723430E5a848",
     "ProductESP_ABI": [
         {
             "inputs": [],

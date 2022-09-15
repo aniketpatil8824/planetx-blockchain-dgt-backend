@@ -1,18 +1,18 @@
 
-const { artifacts, ethers } = require('hardhat')
+const { artifacts, ethers, upgrades } = require('hardhat')
 
 const saveToConfig = require('../utils/saveToConfig')
 
 async function main () {
-  const User = await ethers.getContractFactory('ProductESP')
-  const userABI = (await artifacts.readArtifact('ProductESP')).abi
+  const ProductESP = await ethers.getContractFactory('ProductESP')
+  const productESPABI = (await artifacts.readArtifact('ProductESP')).abi
 
-  await saveToConfig('ProductESP', 'ABI', userABI)
-  const user = await User.deploy()
-  await user.deployed()
+  await saveToConfig('ProductESP', 'ABI', productESPABI)
+  const productESP = await upgrades.deployProxy(ProductESP)
+  await productESP.deployed()
 
-  await saveToConfig('ProductESP', 'ADDRESS', user.address)
-  console.log('ProductESP contract deployed to:', user.address)
+  await saveToConfig('ProductESP', 'ADDRESS', productESP.address)
+  console.log('ProductESP contract deployed to:', productESP.address)
 }
 
 main().catch((error) => {
