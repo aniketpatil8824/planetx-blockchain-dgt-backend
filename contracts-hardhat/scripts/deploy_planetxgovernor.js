@@ -1,23 +1,29 @@
-
-const { artifacts, ethers } = require('hardhat')
+const { artifacts, ethers, upgrades } = require('hardhat')
+const config = require('../../config/contract.json')
 
 const saveToConfig = require('../utils/saveToConfig')
 
 async function main () {
-  const DGT = await ethers.getContractFactory('DGTX')
-  const DGTABI = (await artifacts.readArtifact('DGTX')).abi
+  const PlanetXGovernor = await ethers.getContractFactory('PlanetXGovernor')
+  const PlanetXGovernorABI = (await artifacts.readArtifact('PlanetXGovernor')).abi
 
-  await saveToConfig('DGT', 'ABI', DGTABI)
-  const totalSupply = '210000000000000000000000000'
-  const dgtx = await DGT.deploy(totalSupply)
-  await dgtx.deployed()
+  await saveToConfig('PlanetXGovernor', 'ABI', PlanetXGovernorABI)
 
-  await saveToConfig('DGT', 'ADDRESS', dgtx.address)
-  console.log('DGT contract deployed to:', dgtx.address)
+  const votingDelay = 1 // 1 block Voting Delay
+  const votingPeriod = 45818 // 1 week Voting Period
+  const proposalThreshold = 1 // 0.1% Proposal Threshold
+  const quorumNumerator = 1 // 1% Quorum Required
+  const DGTX_ADDRESS = config.DGTX_ADDRESS
+  const timeControllerAddress = config.PlanetXTimelockController_ADDRESS
+
+  const planetXGovernor = await upgrades.deployProxy(PlanetXGovernor, [DGTX_ADDRESS, timeControllerAddress, votingDelay, votingPeriod, proposalThreshold, quorumNumerator])
+  await planetXGovernor.deployed()
+
+  await saveToConfig('PlanetXGovernor', 'ADDRESS', planetXGovernor.address)
+  console.log('PlanetXGovernor contract deployed to:', planetXGovernor.address)
 }
 
 main().catch((error) => {
   console.error(error)
   process.exitCode = 1
 })
-
