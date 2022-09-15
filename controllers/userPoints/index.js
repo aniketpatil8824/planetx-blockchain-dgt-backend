@@ -1,18 +1,17 @@
 import * as responseUtils from '../../utilities/responseUtils'
 import logger from '../../utilities/logger.js'
 import UserPoints from '../../database/userPoints.js'
-import { generateId, getRootandProof } from '../../utilities/web3Utils'
+import { getRootandProof } from '../../utilities/web3Utils'
 import { publiser } from '../../utilities/queueUtils'
 import config from '../../config'
 import { uuid } from 'uuidv4'
 import Transaction from '../../database/transaction.js'
 import { verifyCurrent, verifyPrevious } from '../../services/dgtpoints'
 
-const createAccount = async (username, points) => {
+const createAccount = async (userId, points) => {
   try {
-    const userId = generateId(username)
+    // const userId = generateId(userId)
     const newUser = new UserPoints({
-      username,
       userId,
       points: [points]
     })
@@ -44,7 +43,7 @@ const setTransaction = async (userId, pointsArray, timestamp) => {
   const tx = new Transaction({ _id: txId, type: 'UPDATE_DGT' })
   await tx.save()
   await tx.setProcessing()
-
+  console.log({ timestamp })
   await publiser(config.QUEUE.LIST.updateDgt, { userId, root: setTree.rootHash, proof: setTree.hexProof, timestamp, txId })
 
   return { txId }
@@ -53,9 +52,9 @@ const setTransaction = async (userId, pointsArray, timestamp) => {
 export const updatePoints = async (req, res) => {
   try {
     const info = req.body
-    const user = await UserPoints.findOne({ username: info.username }).exec()
+    const user = await UserPoints.findOne({ userId: info.userId }).exec()
     if (!user) {
-      const account = await createAccount(info.username, info.score)
+      const account = await createAccount(info.userId, info.score)
       if (account) {
         const response = setTransaction(account.userId, account.points, info.timestamp)
         responseUtils.response.successResponse(res, 'Successfully Updated', response)
@@ -82,9 +81,9 @@ export const updatePoints = async (req, res) => {
 }
 
 export const verifyCurrentPoints = async (req, res) => {
-  const userName = req.query.user
+  const userId = req.query.user
   const score = req.query.score
-  const user = await UserPoints.findOne({ username: userName }).exec()
+  const user = await UserPoints.findOne({ userId }).exec()
   if (user) {
     console.log({ user })
     const response = await verifyCurrent(user.userId, score)
@@ -95,10 +94,10 @@ export const verifyCurrentPoints = async (req, res) => {
 }
 
 export const verifyPreviousPoints = async (req, res) => {
-  const userName = req.query.user
+  const userId = req.query.user
   const score = req.query.score
   const timestamp = req.query.time
-  const user = await UserPoints.findOne({ username: userName }).exec()
+  const user = await UserPoints.findOne({ userId }).exec()
   if (user) {
     console.log({ user })
     const response = await verifyPrevious(user.userId, timestamp, score)

@@ -5,7 +5,7 @@ import Transaction from '../../database/transaction.js'
 
 const createUpdateObject = async (userId, root, proof, timestamp) => {
   const myContract = new web3.eth.Contract(config.CONTRACT.CompanyESP_ABI, config.CONTRACT.CompanyESP_ADDRESS)
-
+  console.log({ timestamp })
   const transactionObject = {
     to: config.CONTRACT.CompanyESP_ADDRESS,
     value: '0x0',
