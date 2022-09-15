@@ -1,5 +1,5 @@
 require('dotenv').config()
-require("@nomiclabs/hardhat-ethers")
+require('@nomiclabs/hardhat-ethers')
 require('@nomiclabs/hardhat-etherscan')
 require('@nomiclabs/hardhat-web3')
 require('@nomiclabs/hardhat-waffle')
@@ -25,9 +25,9 @@ function getPrivateKeys () {
   return privateKeysArray
 }
 
-const MNEMONIC = "tunnel rare laptop hat vague tree eternal vague edge protect differ twelve"
-const ETHERSCAN_API_KEY =  "S4IBTIBTMF8U87TC4Q9M11UGQFBKQDSJUG"
-const GOERLI_RPC_URL = "https://goerli.infura.io/v3/fa3d33544cba4913bbb7ae4c14d72e01"
+const MNEMONIC = 'tunnel rare laptop hat vague tree eternal vague edge protect differ twelve'
+const ETHERSCAN_API_KEY = 'S4IBTIBTMF8U87TC4Q9M11UGQFBKQDSJUG'
+const GOERLI_RPC_URL = 'https://goerli.infura.io/v3/fa3d33544cba4913bbb7ae4c14d72e01'
 
 module.exports = {
   solidity: {
@@ -59,8 +59,8 @@ module.exports = {
     goerli: {
       url: GOERLI_RPC_URL,
       accounts: {
-        mnemonic: MNEMONIC,
-      },
+        mnemonic: MNEMONIC
+      }
     },
 
     kovan: {
@@ -108,4 +108,3 @@ module.exports = {
     timeout: 500000
   }
 }
-
