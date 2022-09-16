@@ -10,11 +10,13 @@ describe('PlanetXGovernor contract', () => {
     })
 
     describe('Deployment', () => {
-        it('Should check the Governor contract parameters', async() => {
+        it('Should check the voting period', async() => {
             expect(await user.votingPeriod()).to.equal(0)
-            //expect(await user.votingDelay()).to.equal(0)
             //expect(await user.quorum()).to.equal(blockNumber)
             //expect(await user.proposalThreshold()).to.equal(1)
+        })
+        it('Should check the voting Delay', async () => {
+            expect(await user.votingDelay()).to.equal(0)
         })
 
     })
