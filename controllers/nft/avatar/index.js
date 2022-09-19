@@ -26,7 +26,20 @@ export const issueAvatarNFT = async (req, res) => {
     const { id } = await pinataService.uploadImage(`./identiconTmp/${userId}.png`)
     console.log(id)
     await fs.unlink(`./identiconTmp/${userId}.png`)
-    const metadataUri = `${pinataService.serviceBaseUrl}/${id}`
+    const data = await pinataService.uploadJson({
+      name: 'PlanetX Avatar NFT',
+      userId,
+      description: 'This is Planetx Avatar NFT',
+      image: `${pinataService.serviceBaseUrl}/${id}`,
+      external_url: 'planetx.com',
+      attributes: [
+        {
+          trait_type: 'Avatar',
+          value: 'yes'
+        }
+      ]
+    })
+    const metadataUri = `${pinataService.serviceBaseUrl}/${data.id}`
 
     const txId = uuid()
     const tx = new Transaction({ _id: txId, type: 'ISSUE_AVATAR_NFT' })
@@ -34,7 +47,7 @@ export const issueAvatarNFT = async (req, res) => {
     await tx.setProcessing()
     await publiser(config.QUEUE.LIST.avatar, { to: address, metadataUri, userId, txId })
 
-    responseUtils.response.successResponse(res, 'Citizenship NFT Issuing Transaction Sent', txId)
+    responseUtils.response.successResponse(res, 'Avatar NFT Issuing Transaction Sent', txId)
   } catch (err) {
     logger.error(err)
     responseUtils.response.serverErrorResponse(res, 'Something Went Wrong', err)

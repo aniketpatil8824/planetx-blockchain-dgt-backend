@@ -8,7 +8,7 @@ const transactionSchema = new Schema({
   type: {
     type: String,
     enum: ['UPDATE_DGT', 'CREATE_SCHEDULE', 'REVOKE_SCHEDULE', 'WITHDRAW_FUNDS', 'RELEASE_FUNDS', 'UPDATE_COMPANY_ESP',
-      'ISSUE_AVATAR_NFT', 'UPDATE_PRODUCT_ESP', 'OTHER'],
+      'ISSUE_AVATAR_NFT', 'ISSUE_CITIZEN_NFT', 'UPDATE_PRODUCT_ESP', 'OTHER'],
     default: 'OTHER'
   },
   status: {

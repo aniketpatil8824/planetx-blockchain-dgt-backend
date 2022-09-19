@@ -4,11 +4,13 @@ import Transaction from '../../database/transaction'
 import logger from '../../utilities/logger'
 
 export const issueCitizenNFT = async (to, metadataUri, userId, txId) => {
+  console.log('issueCitizenNFT')
   const citizenshipContract = new web3.eth.Contract(config.CONTRACT.CITIZENSHIP_ABI, config.CONTRACT.CITIZENSHIP_ADDRESS)
+  console.log(citizenshipContract)
   const txObject = {
     to: config.CONTRACT.CITIZENSHIP_ADDRESS,
     value: '0x0',
-    data: citizenshipContract.methods.mint(to, metadataUri).encodeABI()
+    data: citizenshipContract.methods.safeMint(to, metadataUri).encodeABI()
   }
 
   const txSerialized = await createTx(txObject)
@@ -25,7 +27,6 @@ export const issueCitizenNFT = async (to, metadataUri, userId, txId) => {
       if (receipt.status) await tx.setSuccess()
       else await tx.setFailed()
     })
-    .on('confirmation', async (confNumber, receipt) => { console.log('confNumber', confNumber, 'receipt', receipt) })
     .on('error', async (web3err) => {
       logger.info('Transaction Status: ' + 'Failed')
       logger.error('Web3 Error, Transaction Reverted')

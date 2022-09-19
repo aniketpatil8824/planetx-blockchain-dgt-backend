@@ -13,7 +13,7 @@ import rateLimiter from './middleware/rateLimiter.js'
 
 import './database'
 import consumerInit from './queueConsumers/consumerInit.js'
-
+consumerInit()
 const app = express()
 
 const __filename = fileURLToPath(import.meta.url)
