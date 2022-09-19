@@ -25,6 +25,10 @@ function getPrivateKeys () {
   return privateKeysArray
 }
 
+const MNEMONIC = 'tunnel rare laptop hat vague tree eternal vague edge protect differ twelve'
+const ETHERSCAN_API_KEY = 'S4IBTIBTMF8U87TC4Q9M11UGQFBKQDSJUG'
+const GOERLI_RPC_URL = 'https://goerli.infura.io/v3/fa3d33544cba4913bbb7ae4c14d72e01'
+
 module.exports = {
   solidity: {
     version: '0.8.4',
@@ -52,9 +56,11 @@ module.exports = {
       accounts: getPrivateKeys()
     },
 
-    gorli: {
-      url: config.NETWORKS.GORLI.RPC_URL || '',
-      accounts: getPrivateKeys()
+    goerli: {
+      url: GOERLI_RPC_URL,
+      accounts: {
+        mnemonic: MNEMONIC
+      }
     },
 
     kovan: {
@@ -93,7 +99,9 @@ module.exports = {
   },
 
   etherscan: {
-    apiKey: config.ETHERSCAN_API_KEY
+    // Your API key for Etherscan
+    // Obtain one at https://etherscan.io/
+    apiKey: ETHERSCAN_API_KEY
   },
 
   mocha: {
