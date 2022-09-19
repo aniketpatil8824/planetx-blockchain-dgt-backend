@@ -1,5 +1,5 @@
 
-const { artifacts, ethers } = require('hardhat')
+const { artifacts, ethers, upgrades } = require('hardhat')
 
 const saveToConfig = require('../utils/saveToConfig')
 
@@ -8,7 +8,7 @@ async function main () {
   const userABI = (await artifacts.readArtifact('DGT')).abi
 
   await saveToConfig('DGT', 'ABI', userABI)
-  const user = await User.deploy()
+  const user = await upgrades.deployProxy(User)
   await user.deployed()
 
   await saveToConfig('DGT', 'ADDRESS', user.address)

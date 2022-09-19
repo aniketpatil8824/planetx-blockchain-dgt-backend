@@ -18,8 +18,12 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
     mapping (bytes32 => uint256[]) private timeStamps;
     mapping (bytes32 => mapping (uint256 => Score)) private userBalance;
     
-    constructor() initializer {
-         __Ownable_init();
+    function initialize() public virtual initializer {
+        __companyESPscoreUpgradable_init();
+    }
+
+    function __companyESPscoreUpgradable_init() internal initializer {
+        __Ownable_init();
         __ReentrancyGuard_init();
     }
 
