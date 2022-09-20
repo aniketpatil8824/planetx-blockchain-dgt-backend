@@ -9,11 +9,10 @@ export default async function consumeQueue (QUEUE_NAME, method) {
   channel.prefetch(1)
 
   channel.consume(QUEUE_NAME, async (msg) => {
-    console.log(msg)
     if (msg !== null) {
       let out = msg.content.toString()
       out = JSON.parse(out)
-      console.log(out)
+
       try {
         await method(out) // todo ack(msg)& reject(msg) based on response
         channel.ack(msg)

@@ -4,6 +4,7 @@ import { consumeUpdateCompanyESP } from './company'
 import { consumeUpdateDgt } from './dgt'
 import { consumeUpdateProductESP } from './product'
 import { createNewSchedule, releaseUserScheduleAmount, revokeUserSchedule, withdrawAmounts } from './vesting/updates'
+import { consumeIssueAvatarNft, consumeIssueCitizenNft } from './nft'
 
 const consumeUpdateDGT = () => {
   consumer(config.QUEUE.LIST.updateDgt, consumeUpdateDgt)
@@ -32,6 +33,13 @@ const updateProductESP = () => {
   consumer(config.QUEUE.LIST.updateProductESP, consumeUpdateProductESP)
 }
 
+const issueCitizenNFT = () => {
+  consumer(config.QUEUE.LIST.citizen, consumeIssueCitizenNft)
+}
+const issueAvatarNFT = () => {
+  consumer(config.QUEUE.LIST.avatar, consumeIssueAvatarNft)
+}
+
 const consumerInit = () => {
   consumeUpdateDGT()
   createSchedule()
@@ -40,6 +48,8 @@ const consumerInit = () => {
   withdrawFunds()
   updateCompanyESP()
   updateProductESP()
+  issueCitizenNFT()
+  issueAvatarNFT()
 }
 
 export default consumerInit

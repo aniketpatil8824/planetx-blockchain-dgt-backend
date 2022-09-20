@@ -62,6 +62,11 @@ export default {
 
   PRIVATE_KEYS: privateKeys,
 
-  KEY_SECURE_PASSWORD: process.env.KEY_SECURE_PASSWORD || 'planetx12345'
+  KEY_SECURE_PASSWORD: process.env.KEY_SECURE_PASSWORD || 'planetx12345',
+
+  PINATA: {
+    API_KEY: process.env.PINATA_API_KEY,
+    API_SECRET: process.env.PINATA_API_SECRET
+  } 
 
 }

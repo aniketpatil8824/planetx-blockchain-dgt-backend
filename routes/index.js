@@ -6,6 +6,7 @@ import productRoute from './product'
 import adminRoute from './admin'
 import merchantRoute from './merchant'
 import authRoute from './auth'
+import nftRoute from './nft'
 import healthRoute from './health'
 import verifyAPIKey from '../middleware/verifyAPIKey.js'
 
@@ -23,6 +24,8 @@ router.use('/product', verifyAPIKey, productRoute)
 router.use('/admin', verifyAPIKey, adminRoute)
 router.use('/auth', authRoute)
 router.use('/merchant', verifyAPIKey, merchantRoute)
+router.use('/nft', verifyAPIKey, nftRoute)
+
 router.use('/health', healthRoute)
 
 export default router
