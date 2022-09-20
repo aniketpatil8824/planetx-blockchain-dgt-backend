@@ -5087,7 +5087,13 @@
                 }
             ],
             "name": "safeMint",
-            "outputs": [],
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
             "stateMutability": "nonpayable",
             "type": "function"
         },
@@ -5298,5 +5304,5 @@
             "type": "function"
         }
     ],
-    "AVATAR_ADDRESS": "0x3157967BCD1a80E49F37288a4AbFFB04304C8361"
+    "AVATAR_ADDRESS": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
 }
