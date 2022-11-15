@@ -16,7 +16,6 @@ import "@openzeppelin/contracts/utils/Base64.sol";
  *
  * SoulBoundNFT
  *
- * Based on Membership NFTs by Ezra Weller and R Group, working with Rarible DAO
  *
  */
 
