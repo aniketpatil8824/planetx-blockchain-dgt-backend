@@ -1,13 +1,14 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai')
-const { ethers } = require('hardhat')
+const { ethers, upgrades } = require('hardhat')
 const { getRootandProof, generateId } = require('../helper/tree.cjs')
 
 describe('DGT Contract', () => {
   let Dgt, user, owner, addr1
   beforeEach(async () => {
     Dgt = await ethers.getContractFactory('DGT')
-    user = await Dgt.deploy();
+    user = await upgrades.deployProxy(Dgt)
+    await user.deployed();
     [owner, addr1] = await ethers.getSigners()
   })
 

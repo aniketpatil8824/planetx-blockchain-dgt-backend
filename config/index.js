@@ -4,10 +4,10 @@
 import dotenv from 'dotenv'
 import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
-import dbConstants from './dbConstants.json' assert {type: "json"}
-import contract from './contract.json' assert {type: "json"}
-import privateKeys from './privateKeys.json' assert {type: "json"}
-import queueList from './queue.json' assert {type: "json"}
+import dbConstants from './dbConstants.json' 
+import contract from './contract.json' 
+import privateKeys from './privateKeys.json' 
+import queueList from './queue.json' 
 
 
 const __filename = fileURLToPath(import.meta.url)
@@ -62,6 +62,11 @@ export default {
 
   PRIVATE_KEYS: privateKeys,
 
-  KEY_SECURE_PASSWORD: process.env.KEY_SECURE_PASSWORD || 'planetx12345'
+  KEY_SECURE_PASSWORD: process.env.KEY_SECURE_PASSWORD || 'planetx12345',
+
+  PINATA: {
+    API_KEY: process.env.PINATA_API_KEY,
+    API_SECRET: process.env.PINATA_API_SECRET
+  } 
 
 }

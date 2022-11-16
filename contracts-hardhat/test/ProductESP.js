@@ -1,13 +1,14 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai')
-const { ethers } = require('hardhat')
+const { ethers, upgrades } = require('hardhat')
 const { getRootandProof, generateId } = require('../helper/tree.cjs')
 
 describe('Product ESP Score Contract', () => {
-  let company, user, owner, addr1
+  let product, user, owner, addr1
   beforeEach(async () => {
-    company = await ethers.getContractFactory('ProductESP')
-    user = await company.deploy();
+    product = await ethers.getContractFactory('ProductESP')
+    user = await upgrades.deployProxy(product)
+    await user.deployed();
     [owner, addr1] = await ethers.getSigners()
   })
 

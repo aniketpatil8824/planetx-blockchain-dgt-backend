@@ -5,5 +5,7 @@
     "withdrawFunds":"withdrawFunds",
     "releaseFunds":"releaseFunds",
     "updateCompanyESP":"updateCompanyESP",
-    "updateProductESP":"updateProductESP"
+    "updateProductESP":"updateProductESP",
+    "avatar":"avatar",
+    "citizen":"citizen"
 }
