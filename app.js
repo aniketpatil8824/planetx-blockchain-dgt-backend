@@ -11,6 +11,9 @@ import logger from './utilities/logger.js'
 import routes from './routes'
 import rateLimiter from './middleware/rateLimiter.js'
 
+import swaggerUI from 'swagger-ui-express'
+import swaggerDocsConfig from './swagger/config.js'
+
 import './database'
 import consumerInit from './queueConsumers/consumerInit.js'
 consumerInit()
@@ -31,8 +34,12 @@ app.use(cookieParser())
 app.use(cors())
 app.use(helmet())
 app.use(express.static(path.join(__dirname, 'public')))
+
+
 consumerInit()
+
 app.use('/', routes)
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocsConfig))
 
 app.use(morgan('combined', {
   stream: logger.stream,
