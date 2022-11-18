@@ -25,6 +25,7 @@ router.use('/admin', verifyAPIKey, adminRoute)
 router.use('/auth', authRoute)
 router.use('/merchant', verifyAPIKey, merchantRoute)
 router.use('/nft', verifyAPIKey, nftRoute)
+router.use('/espscore', verifyAPIKey, nftRoute)
 
 router.use('/health', healthRoute)
 
