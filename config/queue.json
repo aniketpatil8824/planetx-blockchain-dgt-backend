@@ -4,8 +4,7 @@
     "revokeSchedule":"revokeSchedule",
     "withdrawFunds":"withdrawFunds",
     "releaseFunds":"releaseFunds",
-    "updateCompanyESP":"updateCompanyESP",
-    "updateProductESP":"updateProductESP",
+    "updateESP":"updateESP",
     "avatar":"avatar",
     "citizen":"citizen"
 }

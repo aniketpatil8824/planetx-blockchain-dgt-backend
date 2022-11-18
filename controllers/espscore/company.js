@@ -6,7 +6,6 @@ import { publiser } from '../../utilities/queueUtils'
 import config from '../../config'
 import { uuid } from 'uuidv4'
 import Transaction from '../../database/transaction.js'
-import { verifyCurrentCompanyESP, verifyPreviousCompanyESP } from '../../services/companyScore'
 
 const createAccount = async (companyId, points) => {
   try {
@@ -43,7 +42,7 @@ const setTransaction = async (userId, pointsArray, timestamp) => {
   await tx.save()
   await tx.setProcessing()
 
-  await publiser(config.QUEUE.LIST.updateCompanyESP, { userId, root: setTree.rootHash, proof: setTree.hexProof, timestamp, txId })
+  await publiser(config.QUEUE.LIST.updateESP, { userId, root: setTree.rootHash, proof: setTree.hexProof, timestamp, txId, type: 'company' })
 
   return { txId }
 }
@@ -76,32 +75,5 @@ export const updatePoints = async (req, res) => {
   } catch (err) {
     logger.error(err)
     responseUtils.response.serverErrorResponse(res, err)
-  }
-}
-
-export const verifyCurrentPoints = async (req, res) => {
-  const companyId = req.query.companyId
-  const score = req.query.score
-  const user = await CompanyScores.findOne({ companyId }).exec()
-  if (user) {
-    console.log({ user })
-    const response = await verifyCurrentCompanyESP(user.companyId, score)
-    responseUtils.response.successResponse(res, 'Verification Completed', { response })
-  } else {
-    responseUtils.response.serverErrorResponse(res, ' User Information Not Found', { Error: 'User Not Found' })
-  }
-}
-
-export const verifyPreviousPoints = async (req, res) => {
-  const companyId = req.query.companyId
-  const score = req.query.score
-  const timestamp = req.query.time
-  const user = await CompanyScores.findOne({ companyId }).exec()
-  if (user) {
-    console.log({ user })
-    const response = await verifyPreviousCompanyESP(user.companyId, timestamp, score)
-    responseUtils.response.successResponse(res, 'Verification Completed', { response })
-  } else {
-    responseUtils.response.serverErrorResponse(res, ' User Information Not Found', { Error: 'User Not Found' })
   }
 }

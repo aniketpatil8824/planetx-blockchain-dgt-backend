@@ -6,7 +6,6 @@ import { publiser } from '../../utilities/queueUtils'
 import config from '../../config'
 import { uuid } from 'uuidv4'
 import Transaction from '../../database/transaction.js'
-import { verifyCurrentProductESP, verifyPreviousProductESP } from '../../services/productScore'
 
 const createAccount = async (productId, points) => {
   try {
@@ -43,7 +42,7 @@ const setTransaction = async (userId, pointsArray, timestamp) => {
   await tx.save()
   await tx.setProcessing()
 
-  await publiser(config.QUEUE.LIST.updateProductESP, { userId, root: setTree.rootHash, proof: setTree.hexProof, timestamp, txId })
+  await publiser(config.QUEUE.LIST.updateESP, { userId, root: setTree.rootHash, proof: setTree.hexProof, timestamp, txId, type: 'product' })
 
   return { txId }
 }
@@ -76,33 +75,5 @@ export const updatePoints = async (req, res) => {
   } catch (err) {
     logger.error(err)
     responseUtils.response.serverErrorResponse(res, err)
-  }
-}
-
-export const verifyCurrentPoints = async (req, res) => {
-  const productId = req.query.productId
-  const score = req.query.score
-  console.log({ respppp: res })
-  const user = await ProductScores.findOne({ productId }).exec()
-  if (user) {
-    console.log({ respppp2: user })
-    const response = await verifyCurrentProductESP(user.productId, score)
-    responseUtils.response.successResponse(res, 'Verification Completed', { response })
-  } else {
-    responseUtils.response.serverErrorResponse(res, ' User Information Not Found', { Error: 'User Not Found' })
-  }
-}
-
-export const verifyPreviousPoints = async (req, res) => {
-  const productId = req.query.productId
-  const score = req.query.score
-  const timestamp = req.query.time
-  const user = await ProductScores.findOne({ productId }).exec()
-  if (user) {
-    console.log({ user })
-    const response = await verifyPreviousProductESP(user.productId, timestamp, score)
-    responseUtils.response.successResponse(res, 'Verification Completed', { response })
-  } else {
-    responseUtils.response.serverErrorResponse(res, ' User Information Not Found', { Error: 'User Not Found' })
   }
 }

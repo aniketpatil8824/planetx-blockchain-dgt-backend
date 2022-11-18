@@ -1,8 +1,7 @@
 import config from '../config'
 import { consumer } from '../utilities/queueUtils'
-import { consumeUpdateCompanyESP } from './company'
+import { consumeUpdateESP } from './espScore'
 import { consumeUpdateDgt } from './dgt'
-import { consumeUpdateProductESP } from './product'
 import { createNewSchedule, releaseUserScheduleAmount, revokeUserSchedule, withdrawAmounts } from './vesting/updates'
 import { consumeIssueAvatarNft, consumeIssueCitizenNft } from './nft'
 
@@ -25,12 +24,8 @@ const withdrawFunds = () => {
   consumer(config.QUEUE.LIST.withdrawFunds, withdrawAmounts)
 }
 
-const updateCompanyESP = () => {
-  consumer(config.QUEUE.LIST.updateCompanyESP, consumeUpdateCompanyESP)
-}
-
-const updateProductESP = () => {
-  consumer(config.QUEUE.LIST.updateProductESP, consumeUpdateProductESP)
+const updateESP = () => {
+  consumer(config.QUEUE.LIST.updateESP, consumeUpdateESP)
 }
 
 const issueCitizenNFT = () => {
@@ -46,8 +41,7 @@ const consumerInit = () => {
   revokeSchedule()
   releaseFunds()
   withdrawFunds()
-  updateCompanyESP()
-  updateProductESP()
+  updateESP()
   issueCitizenNFT()
   issueAvatarNFT()
 }

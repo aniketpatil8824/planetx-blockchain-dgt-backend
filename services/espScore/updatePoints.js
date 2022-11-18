@@ -3,11 +3,12 @@ import config from '../../config'
 import { createTx, web3 } from '../../utilities/web3Utils'
 import Transaction from '../../database/transaction.js'
 
-const createUpdateObject = async (userId, root, proof, timestamp) => {
-  const myContract = new web3.eth.Contract(config.CONTRACT.CompanyESP_ABI, config.CONTRACT.CompanyESP_ADDRESS)
-  console.log({ timestamp })
+const createUpdateObject = async (userId, root, proof, timestamp, type) => {
+  const myContract = type === 'company'
+    ? new web3.eth.Contract(config.CONTRACT.CompanyESP_ABI, config.CONTRACT.CompanyESP_ADDRESS)
+    : new web3.eth.Contract(config.CONTRACT.ProductESP_ABI, config.CONTRACT.ProductESP_ADDRESS)
   const transactionObject = {
-    to: config.CONTRACT.CompanyESP_ADDRESS,
+    to: type === 'company' ? config.CONTRACT.CompanyESP_ADDRESS : config.CONTRACT.ProductESP_ADDRESS,
     value: '0x0',
     data: myContract.methods
       .updatePoints(userId, root, proof, timestamp).encodeABI()
@@ -16,8 +17,8 @@ const createUpdateObject = async (userId, root, proof, timestamp) => {
   return transactionObject
 }
 
-export const updateCompanyEspScore = async (userId, root, proof, timestamp, txId) => {
-  const txObject = await createUpdateObject(userId, root, proof, timestamp)
+export const updateChainEspScore = async (userId, root, proof, timestamp, txId, type) => {
+  const txObject = await createUpdateObject(userId, root, proof, timestamp, type)
   const txSerialized = await createTx(txObject)
 
   const tx = await Transaction.findById(txId)
